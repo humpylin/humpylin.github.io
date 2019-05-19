@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-05-12T09:44:24&#43;08:00" />
 <meta itemprop="dateModified" content="2019-05-12T09:44:24&#43;08:00" />
-<meta itemprop="wordCount" content="665">
+<meta itemprop="wordCount" content="700">
 
 
 
@@ -143,7 +143,10 @@
 <li><a href="#编辑模式">编辑模式</a></li>
 <li><a href="#保存和退出">保存和退出</a></li>
 </ul></li>
-<li><a href="#光标移动">光标移动</a></li>
+<li><a href="#光标移动">光标移动</a>
+<ul>
+<li><a href="#以单词为单位">以单词为单位</a></li>
+</ul></li>
 <li><a href="#参考">参考</a></li>
 </ul></li>
 </ul>
@@ -176,6 +179,10 @@
 <h2 id="光标移动">光标移动</h2>
 
 <p>最简单的，使用 <code>hjkl</code> 来进行光标移动。一开始觉得这点非常反人类，不过习惯之后会觉得方便的可怕，换别的编辑器都变得不习惯了。</p>
+
+<p>用 <code>%</code> 可以匹配 <code>([{}])</code> 等括号进行跳转，同时对 <code>/* */</code> 这样 C-style 的注释有效。</p>
+
+<h3 id="以单词为单位">以单词为单位</h3>
 
 <p><code>w</code> 可以跳转至下一个单词的首字母处。 <code>e</code> 可以跳转至当前单词的尾字母处，如果已经在末尾了，会跳转到下一个单词的末尾。而 <code>b</code> 则会跳转到上一个单词的首字母处。</p>
 
