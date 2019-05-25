@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-05-12T09:44:24&#43;08:00" />
 <meta itemprop="dateModified" content="2019-05-12T09:44:24&#43;08:00" />
-<meta itemprop="wordCount" content="700">
+<meta itemprop="wordCount" content="888">
 
 
 
@@ -147,6 +147,7 @@
 <ul>
 <li><a href="#以单词为单位">以单词为单位</a></li>
 </ul></li>
+<li><a href="#剪删帖">剪删帖</a></li>
 <li><a href="#参考">参考</a></li>
 </ul></li>
 </ul>
@@ -174,6 +175,8 @@
 
 <p>使用 <code>:w</code> 可以进行保存，使用 <code>:q</code> 可以进行退出。另外还可以拼在一起变成 <code>:wq</code> 来保存并退出。</p>
 
+<p>此外，文件修改过后是无法直接使用 <code>:q</code> 来退出的，需要加上感叹号变成 <code>:q!</code> 来强制退出。</p>
+
 <p>当然，上面说的是在 Normal Mode 中进行的。</p>
 
 <h2 id="光标移动">光标移动</h2>
@@ -187,6 +190,16 @@
 <p><code>w</code> 可以跳转至下一个单词的首字母处。 <code>e</code> 可以跳转至当前单词的尾字母处，如果已经在末尾了，会跳转到下一个单词的末尾。而 <code>b</code> 则会跳转到上一个单词的首字母处。</p>
 
 <p><code>W</code> <code>E</code> 和 <code>B</code> 有相似的功能，区别在于小写的几个命令会把 <code>foo-bar-baz</code> 看成三个单词，而大写的这几个命令会把它视为一个单词，用 <code>w</code> 的时候会依次停留在 <code>f</code> <code>-</code> <code>b</code> <code>-</code> <code>b</code> 上面，而用 <code>W</code> 的话而只会停留在 <code>f</code> 一次。关于这个可以看看 <a href="https://stackoverflow.com/questions/14390519/whats-the-difference-between-b-and-b-in-vim">这个回答</a> 以及里面提及的 <code>:help iskeyword</code> 。</p>
+
+<h2 id="剪删帖">剪删帖</h2>
+
+<p><code>x</code> 可以删除目前光标所在的字符。</p>
+
+<p><code>dd</code> 可以将当前行剪切到寄存器中，<code>p</code> 可以将寄存器中的内容粘贴到下一行，类似的，<code>P</code> 可以将寄存器的内容粘贴到上一行。如果寄存器中没有什么重要内容，那么完全可以当作删除来用。</p>
+
+<p><code>yy</code> 可以将当前行复制到寄存器中，其实也就相当于 <code>ddP</code> 了。</p>
+
+<p>至于寄存器是什么，现在先不要理会，就当成剪贴板吧。</p>
 
 <h2 id="参考">参考</h2>
 
