@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Understanding-The-Linux-Kernel on Humphrey Lin&#39;s Blog</title>
+    <link>https://humpylin.github.io/tags/understanding-the-linux-kernel/</link>
+    <description>Recent content in Understanding-The-Linux-Kernel on Humphrey Lin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 25 May 2019 22:05:36 +0800</lastBuildDate>
+    
+	<atom:link href="https://humpylin.github.io/tags/understanding-the-linux-kernel/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>UTLK - Chap12 - 随记</title>
+      <link>https://humpylin.github.io/post/understanding-the-linux-kernel/chap12/</link>
+      <pubDate>Sat, 25 May 2019 22:05:36 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/post/understanding-the-linux-kernel/chap12/</guid>
+      <description>以下为看 Understanding the Linux Kernel, 3rd Edition 一书的随手记录。 Linux manages to support multiple filesystem types in the same way other Unix variants do, through a concept called the Virtual Filesystem. The Role of the Virtual Filesystem (VFS) The Virtual Filesystem (also known as Virtual Filesystem Switch or VFS) is a kernel software layer that handles all system calls related to</description>
+    </item>
+    
+  </channel>
+</rss>

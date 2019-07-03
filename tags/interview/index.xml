@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Interview on Humphrey Lin&#39;s Blog</title>
+    <link>https://humpylin.github.io/tags/interview/</link>
+    <description>Recent content in Interview on Humphrey Lin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 15 May 2019 13:39:55 +0800</lastBuildDate>
+    
+	<atom:link href="https://humpylin.github.io/tags/interview/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SAP VT 项目面试经历</title>
+      <link>https://humpylin.github.io/post/sap-vt-interview/</link>
+      <pubDate>Wed, 15 May 2019 13:39:55 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/post/sap-vt-interview/</guid>
+      <description>坐标上海，今年（2019）的 VT 项目分三个环节：线上测试、电话面试以及群体面试。 线上笔试 线上测试有 20 道选择题，以及两道编程题。选择题覆盖的范围</description>
+    </item>
+    
+    <item>
+      <title>摩根士丹利宣讲会笔试</title>
+      <link>https://humpylin.github.io/post/morgan-test/</link>
+      <pubDate>Thu, 14 Mar 2019 21:29:17 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/post/morgan-test/</guid>
+      <description>今天摩根士丹利来学校里进行宣讲，一开始是惯例地讲了许多公司的福利呀等等，对于还不知道可不可能可以去实习的我来说实在没什么价值。不过可以切实感</description>
+    </item>
+    
+  </channel>
+</rss>

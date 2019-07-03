@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C&#43;&#43; - 基于对象编程 - Humphrey Lin&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Humphrey Lin" /><meta name="description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 的第四章。 如何实现一个 Class 先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+
+
+<link rel="canonical" href="https://humpylin.github.io/post/essentialcpp/essentialcpp-ch4/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="C&#43;&#43; - 基于对象编程" />
+<meta property="og:description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 的第四章。 如何实现一个 Class 先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://humpylin.github.io/post/essentialcpp/essentialcpp-ch4/" /><meta property="article:published_time" content="2019-07-03T14:19:07&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-03T14:19:07&#43;08:00"/>
+
+<meta itemprop="name" content="C&#43;&#43; - 基于对象编程">
+<meta itemprop="description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 的第四章。 如何实现一个 Class 先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而">
+
+
+<meta itemprop="datePublished" content="2019-07-03T14:19:07&#43;08:00" />
+<meta itemprop="dateModified" content="2019-07-03T14:19:07&#43;08:00" />
+<meta itemprop="wordCount" content="2081">
+
+
+
+<meta itemprop="keywords" content="Book,Essential C&#43;&#43;," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C&#43;&#43; - 基于对象编程"/>
+<meta name="twitter:description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 的第四章。 如何实现一个 Class 先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Humphrey Lin&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Humphrey Lin&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">C&#43;&#43; - 基于对象编程</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-07-03 </span>
+        <div class="post-category">
+            <a href="/categories/notes/"> Notes </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#如何实现一个-class">如何实现一个 Class</a></li>
+<li><a href="#构造函数和析构函数">构造函数和析构函数</a>
+<ul>
+<li><a href="#构造函数">构造函数</a></li>
+<li><a href="#member-initialization-list">Member Initialization List</a></li>
+<li><a href="#析构函数">析构函数</a></li>
+<li><a href="#memberwise-initialization">Memberwise Initialization</a></li>
+</ul></li>
+<li><a href="#mutable-and-const">Mutable and Const</a></li>
+<li><a href="#this">This</a></li>
+<li><a href="#static-class-members">Static Class Members</a>
+<ul>
+<li><a href="#static-data-member">Static Data Member</a></li>
+<li><a href="#static-member-function">Static Member Function</a></li>
+</ul></li>
+<li><a href="#运算符重载">运算符重载</a></li>
+<li><a href="#friend">Friend</a></li>
+<li><a href="#重载-iostream-运算符">重载 iostream 运算符</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<p>这是一篇读书笔记，内容主要来自 Essential C++ 的第四章。</p>
+
+<h2 id="如何实现一个-class">如何实现一个 Class</h2>
+
+<p>先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而 s 就是对象。类一般会有内部的数据，以及对数据进行操作的函数，如 <code>s.length()</code> 就可以获得字符串的长度。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>创建一个类所需要的操作如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span><span class="err"> </span><span class="nc">Stack</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// something
+</span><span class="c1"></span><span class="k">private</span><span class="o">:</span>
+    <span class="c1">// something
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>只需要在注释处对类里面的变量和函数进行定义即可，在 public 的位置的数据和函数可以被外界访问，而 private 的只能自己访问。</p>
+
+<p>所有 member function 都必须在 class 主体内进行声明，在 class 主体内定义的函数会自动被视为 inline 函数。class 的定义和 inline member function 通常都会被放在与 class 同名的头文件中，而 non-inline member function 会放在程序的源代码中（ 诸如.cpp, .cc, .c）。</p>
+
+<p>所有头文件都应该使用 <code>#define</code> 来防止头文件被多重包含, 命名格式当是: <code>&lt;PROJECT&gt;_&lt;PATH&gt;_&lt;FILE&gt;_H_</code> . （<a href="https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/headers/">https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/headers/</a>）另外一般不会在头文件中加入 <code>using namespace xxx;</code> 会导致传染，在 <code>.cc</code> 文件里面可以使用。</p>
+
+<h2 id="构造函数和析构函数">构造函数和析构函数</h2>
+
+<h3 id="构造函数">构造函数</h3>
+
+<p>构造函数（constructor）就是创建对象的时候会调用的帮助进行初始化的函数，可以被重载。</p>
+
+<p>constructor 的函数名必须和 class 的名称相同。语法规定，constructor 不应该指定返回类型，也不用返回任何值。它可以被重载（overloaded）。</p>
+
+<p>调用无参数的 constructor 时，只可以使用 <code>ClassName c;</code> 的形式，而不能使用 <code>ClassName c();</code> 的形式。原因是，C++ 兼容 C 语言，而 C 会把后者看成一个返回 <code>ClassName</code> 类型的函数。</p>
+
+<p>default constructor 有两种情况，一种是没有参数，一种是使用默认值，如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+
+<span class="cm">/* 不接受任何参数的情况 */</span>
+<span class="n">Triangular</span><span class="o">::</span><span class="n">Triangular</span><span class="p">()</span>
+<span class="p">{</span>	<span class="c1">// default constructor
+</span><span class="c1"></span>	<span class="n">_length</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ 	<span class="n">_beg_pos</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ 	<span class="n">_next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* 使用默认值的情况 */</span>
+<span class="k">class</span><span class="err"> </span><span class="nc">Triangular</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+    	<span class="n">Triangular</span><span class="p">(</span><span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bp</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">Triangular</span><span class="o">::</span><span class="n">Triangular</span><span class="p">(</span><span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">_length</span> <span class="o">=</span> <span class="n">len</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nl">len</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">_beg_pos</span> <span class="o">=</span> <span class="n">bp</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">:</span> <span class="nl">bp</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">_next</span> <span class="o">=</span> <span class="n">_beg_pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="member-initialization-list">Member Initialization List</h3>
+
+<p>大概为如下形式的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">Triangular</span><span class="o">::</span><span class="n">Triangular</span><span class="p">(</span><span class="k">const</span> <span class="n">Triangular</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">_length</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">_length</span><span class="p">),</span>
+	  <span class="n">_beg_pos</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">_beg_pos</span><span class="p">),</span> <span class="n">_next</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">_beg_pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">{}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>在没有 member object 的情况两者是等价的，当有 member object 的时候就必须要使用 member initialization list 来进行初始化。</p>
+
+<h3 id="析构函数">析构函数</h3>
+
+<p>当 object 结束生命的时候，会自动调用 destructor 来处理善后，主要用来释放生命周期中分配的资源，比如说在 constructor 中的 <code>_pmat = new double[row * col]</code> ，在 destructor 中就需要使用 <code>delete [] _pmat</code> 来释放资源。</p>
+
+<p>Destructor 不是绝对必要的。</p>
+
+<h3 id="memberwise-initialization">Memberwise Initialization</h3>
+
+<p>进行如下操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">Triangular</span> <span class="nf">tri1</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+<span class="n">Triangular</span> <span class="n">tri2</span> <span class="o">=</span> <span class="n">tri1</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>此时 tri1 的 class data member 会被全部复制到 tri2 中，这个过程就是 default memberwise initialization 。</p>
+
+<p>但是当 tri1 存在动态分配的产生的指针时，这个指针的值也会分配到 tri2 中，于是两者会共用同一块内存空间。而当 tri1 销毁时，tri2 的指针就会指向一个无效的地址了。为了解决这个问题，需要重新写一个像下面那样的构造函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">Triangular</span><span class="o">::</span><span class="n">Triangular</span><span class="p">(</span><span class="k">const</span> <span class="n">Triangular</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// write something here
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="mutable-and-const">Mutable and Const</h2>
+
+<p>调用函数的时候，如果参数加了 const ，编译器会保证参数不会被修改。而函数的参数列表后面如果加了 const 修饰符，这个 member function 会被检查是否有修改 class object 的内容。此外，被 const 修饰的 member function 如果返回成员变量，必须要把返回类型也用 const 修饰。</p>
+
+<p>如果被修改的成员变量其实修改了也没有关系，可以声明的时候加 mutable 进行修饰，那么在使用 const 的函数的时候，这个值被修改了也不会报错。</p>
+
+<h2 id="this">This</h2>
+
+<p>类似 Python 里面的 self ，不过 this 是一个指针，而不是引用。</p>
+
+<h2 id="static-class-members">Static Class Members</h2>
+
+<h3 id="static-data-member">Static Data Member</h3>
+
+<p>被标记为 static 后，可以在同一个类的所有对象中被访问，对于 class 来说只有一份实体，有点点类似全局对象。除了在类里使用 static 声明外，还需要在 class 外面进行初始化（static 成员的空间是在初始化的时候进行分配的），在外面就不需要加上 static 了。</p>
+
+<h3 id="static-member-function">Static Member Function</h3>
+
+<p>如果 member function 的调用和任何 non-static data memebr 都没有关系的话，可以在函数声明前面加上一个 static ，这样就可以不创建任何对象，然后调用的时候直接用 <code>ClassName::FunctionName()</code> 来调用。在里面使用 static 声明后，在外面定义就不需要重复写 static 了。</p>
+
+<h2 id="运算符重载">运算符重载</h2>
+
+<p>运算符函数看起来就像普通函数，唯一差别是它不用指定名称，只需要在运算符前加上关键字 operator 就可以了。运算符重载的规则：</p>
+
+<ul>
+<li>不可以使用 <code>.</code> ，<code>.*</code> ，<code>::</code> 和 <code>?:</code> 。</li>
+<li>运算符的操作数不可以改变。</li>
+<li>运算符的优先级不变。</li>
+<li>参数列表中必须要有一个是 class 类型。</li>
+</ul>
+
+<p>运算符的定义方式，可以像 member function ，也可以像 non-member function ，如下所示。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+
+<span class="cm">/* member function */</span>
+<span class="kr">inline</span> <span class="kt">int</span> <span class="n">Triangular_iterator</span><span class="o">::</span>
+<span class="k">operator</span><span class="o">*</span><span class="p">()</span> <span class="k">const</span> 
+<span class="p">{</span>
+    <span class="n">check_integrity</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">Triangular</span><span class="o">::</span><span class="n">_elems</span><span class="p">[</span><span class="n">_index</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="cm">/* non-member function */</span>
+<span class="kr">inline</span> <span class="kt">int</span> 
+<span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="n">Triangular_iterator</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">rhs</span><span class="p">.</span><span class="n">check_integrity</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">Triangular</span><span class="o">::</span><span class="n">_elems</span><span class="p">[</span><span class="n">_index</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>需要注意，non-member function 没有访问 non-public member 的权力。</strong>如果需要让上面的第二个函数通过编译，需要将其指定为 friend ，具体见下面。</p>
+
+<p><code>++</code> 运算符有前置和后置两种版本，编译时如果参数列表为空，则视为运算符前置，如果参数列表为 <code>(int)</code> 则视为后置。</p>
+
+<h2 id="friend">Friend</h2>
+
+<p>Friend 具备了与 class member function 相同的访问权限，可以访问 class 的 private member 。</p>
+
+<p>而对于上面提及的 <code>operator*()</code> ，需要在 Triangular 和 Triangular_iterator 里面将 <code>operator*()</code> 声明为 friend （只要在函数前面加上 friend 就可以了，可以出现在 class 里的任何位置，不受 private 和 public 的影响）。</p>
+
+<p>另外可以在两个类之间建立 friend，这样被标记为 friend 的类的所有 member function 都成为了自己的 friend，使用如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span><span class="err"> </span><span class="nc">Triangular</span> <span class="p">{</span>
+    <span class="k">friend</span> <span class="k">class</span><span class="err"> </span><span class="nc">Triangular_iterator</span><span class="p">;</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>不过，如果实在要访问 private member ，也可以在被访问的类里添加类似 <code>vector.size()</code> 这样会返回 private member 值的 public 函数，来实现访问。使用 friend 通常是出于效率上的考虑。</p>
+
+<h2 id="重载-iostream-运算符">重载 iostream 运算符</h2>
+
+<p>一般重载 input 和 output 运算符的函数不会作为 member function ，因为 member function 要求对象在操作符的左边。</p>
+
+<p>示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+
+<span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">Triangular</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;( &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">rhs</span><span class="p">.</span><span class="n">beg_pos</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span>
+        <span class="o">&lt;&lt;</span> <span class="n">rhs</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; )&#34;</span><span class="p">;</span>
+    
+    <span class="n">rhs</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">length</span><span class="p">(),</span> <span class="n">rhs</span><span class="p">.</span><span class="n">beg_pos</span><span class="p">(),</span> <span class="n">os</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">os</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Humphrey Lin</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2019-07-03</span>
+  </p>
+  
+  
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/book/">Book</a>
+          <a href="/tags/essential-c&#43;&#43;/">Essential C&#43;&#43;</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/sap-vt-interview/">
+            <span class="next-text nav-default">SAP VT 项目面试经历</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:humpylin@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/humpylin" class="iconfont icon-github" title="github"></a>
+  <a href="https://humpylin.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Humphrey Lin</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"  integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-129102042-2', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

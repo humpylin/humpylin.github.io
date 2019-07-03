@@ -6,10 +6,28 @@
     <description>Recent content on Humphrey Lin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 May 2019 09:44:24 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jul 2019 14:19:07 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43; - 基于对象编程</title>
+      <link>https://humpylin.github.io/post/essentialcpp/essentialcpp-ch4/</link>
+      <pubDate>Wed, 03 Jul 2019 14:19:07 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/post/essentialcpp/essentialcpp-ch4/</guid>
+      <description>这是一篇读书笔记，内容主要来自 Essential C++ 的第四章。 如何实现一个 Class 先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而</description>
+    </item>
+    
+    <item>
+      <title>SAP VT 项目面试经历</title>
+      <link>https://humpylin.github.io/post/sap-vt-interview/</link>
+      <pubDate>Wed, 15 May 2019 13:39:55 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/post/sap-vt-interview/</guid>
+      <description>坐标上海，今年（2019）的 VT 项目分三个环节：线上测试、电话面试以及群体面试。 线上笔试 线上测试有 20 道选择题，以及两道编程题。选择题覆盖的范围</description>
+    </item>
     
     <item>
       <title>Vim 学习记录 - 基本操作</title>
@@ -18,6 +36,15 @@
       
       <guid>https://humpylin.github.io/post/vim-learning-basic/</guid>
       <description>在这里记录目前自己学习到的 Vim 的基本用法，也方便自己以后忘了后来翻阅。随着对 Vim 的使用，文章应该会变得越来越长，不过也可能因为放弃了所以一直没变</description>
+    </item>
+    
+    <item>
+      <title>摩根士丹利宣讲会笔试</title>
+      <link>https://humpylin.github.io/post/morgan-test/</link>
+      <pubDate>Thu, 14 Mar 2019 21:29:17 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/post/morgan-test/</guid>
+      <description>今天摩根士丹利来学校里进行宣讲，一开始是惯例地讲了许多公司的福利呀等等，对于还不知道可不可能可以去实习的我来说实在没什么价值。不过可以切实感</description>
     </item>
     
   </channel>
