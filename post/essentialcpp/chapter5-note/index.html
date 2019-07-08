@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.56.0-DEV with even 4.0.0" />
+<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://humpylin.github.io/post/essentialcpp/chapter5-note/" />
@@ -41,20 +41,20 @@
 <meta property="og:title" content="C&#43;&#43; - 面向对象编程" />
 <meta property="og:description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://humpylin.github.io/post/essentialcpp/chapter5-note/" />
-<meta property="article:published_time" content="2019-07-06T16:06:30+08:00" />
-<meta property="article:modified_time" content="2019-07-06T16:06:30+08:00" />
+<meta property="og:url" content="https://humpylin.github.io/post/essentialcpp/chapter5-note/" /><meta property="article:published_time" content="2019-07-06T16:06:30&#43;08:00"/>
+<meta property="article:modified_time" content="2019-07-06T16:06:30&#43;08:00"/>
+
 <meta itemprop="name" content="C&#43;&#43; - 面向对象编程">
 <meta itemprop="description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和">
 
 
 <meta itemprop="datePublished" content="2019-07-06T16:06:30&#43;08:00" />
 <meta itemprop="dateModified" content="2019-07-06T16:06:30&#43;08:00" />
-<meta itemprop="wordCount" content="1633">
+<meta itemprop="wordCount" content="1638">
 
 
 
-<meta itemprop="keywords" content="Essential C&#43;&#43;,Book," />
+<meta itemprop="keywords" content="Essential C&#43;&#43;,Book,C&#43;&#43;," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43; - 面向对象编程"/>
 <meta name="twitter:description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和"/>
@@ -168,6 +168,7 @@
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="nf">check_</span><span class="p">(</span><span class="n">A</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span>
@@ -196,6 +197,7 @@
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span><span class="err"> </span><span class="nc">Book</span> <span class="o">:</span> <span class="k">public</span> <span class="n">LibMat</span> <span class="p">{</span>
@@ -230,6 +232,7 @@
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
@@ -262,6 +265,7 @@
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
@@ -280,6 +284,7 @@
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
@@ -300,18 +305,15 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2019-07-06
-        
-    </span>
+    <span class="item-content">2019-07-06</span>
   </p>
   
   
-</div>
-<footer class="post-footer">
+</div><footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/essential-c&#43;&#43;/">Essential C&#43;&#43;</a>
           <a href="/tags/book/">Book</a>
+          <a href="/tags/c&#43;&#43;/">C&#43;&#43;</a>
           </div>
       <nav class="post-nav">
         
@@ -324,11 +326,20 @@
     </footer>
   </article>
         </div>
-        
-  
-  
+        <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
 
-  
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'Humphrey';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
       </div>
     </main>

@@ -1,53 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <?xml-stylesheet type="text/xsl" href="https://humpylin.github.io/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <url>
-    <loc>https://humpylin.github.io/tags/book/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
-    <priority>0</priority>
-  </url>
   
   <url>
     <loc>https://humpylin.github.io/post/essentialcpp/chapter5-note/</loc>
     <lastmod>2019-07-06T16:06:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://humpylin.github.io/categories/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://humpylin.github.io/tags/essential-c&#43;&#43;/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://humpylin.github.io/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://humpylin.github.io/categories/notes/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://humpylin.github.io/post/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://humpylin.github.io/tags/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -58,34 +17,10 @@
   </url>
   
   <url>
-    <loc>https://humpylin.github.io/categories/experience/</loc>
-    <lastmod>2019-05-15T13:39:55+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://humpylin.github.io/tags/interview/</loc>
-    <lastmod>2019-05-15T13:39:55+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://humpylin.github.io/tags/sap/</loc>
-    <lastmod>2019-05-15T13:39:55+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://humpylin.github.io/post/sap-vt-interview/</loc>
     <lastmod>2019-05-15T13:39:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://humpylin.github.io/tags/vim/</loc>
-    <lastmod>2019-05-12T09:44:24+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -96,16 +31,100 @@
   </url>
   
   <url>
-    <loc>https://humpylin.github.io/tags/morgan-stanley/</loc>
-    <lastmod>2019-03-14T21:29:17+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://humpylin.github.io/post/morgan-test/</loc>
     <lastmod>2019-03-14T21:29:17+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/book/</loc>
+    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/c&#43;&#43;/</loc>
+    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/categories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/essential-c&#43;&#43;/</loc>
+    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/categories/experience/</loc>
+    <lastmod>2019-05-15T13:39:55+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/</loc>
+    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/interview/</loc>
+    <lastmod>2019-05-15T13:39:55+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/morgan-stanley/</loc>
+    <lastmod>2019-03-14T21:29:17+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/categories/notes/</loc>
+    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/post/</loc>
+    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/sap/</loc>
+    <lastmod>2019-05-15T13:39:55+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/</loc>
+    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/vim/</loc>
+    <lastmod>2019-05-12T09:44:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
   </url>
   
 </urlset>
