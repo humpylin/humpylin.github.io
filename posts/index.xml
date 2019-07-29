@@ -1,0 +1,785 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Posts on Humphreylin&#39;s Blog</title>
+		<link>https://humpylin.github.io/posts/</link>
+		<description>Recent content in Posts on Humphreylin&#39;s Blog</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+		<lastBuildDate>Mon, 29 Jul 2019 12:06:14 +0800</lastBuildDate>
+		<atom:link href="https://humpylin.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>CSAPP - Data Lab 记录</title>
+			<link>https://humpylin.github.io/posts/csapp/data-lab/</link>
+			<pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
+			
+			<guid>https://humpylin.github.io/posts/csapp/data-lab/</guid>
+			<description>这里记录的 Data Lab 是 CSAPP 18年11月更新的版本，写的过程中遇到了很多困难，于是许多题目就照搬别人的了。切身感受到，看到别人写过的东西，才会知道自己</description>
+			<content type="html"><![CDATA[
+
+<p>这里记录的 Data Lab 是 <a href="http://csapp.cs.cmu.edu/3e/labs.html">CSAPP</a> 18年11月更新的版本，写的过程中遇到了很多困难，于是许多题目就照搬别人的了。切身感受到，看到别人写过的东西，才会知道自己到底有多菜。在这里对这次 Lab 做一次记录并附上思路，方便之后回顾。</p>
+
+<h2 id="data-lab">Data Lab</h2>
+
+<p>（部分题目较简单，在此不列出）</p>
+
+<h3 id="istmax">isTmax</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">//2
+</span><span class="c1"></span><span class="cm">/*
+</span><span class="cm"> * isTmax - returns 1 if x is the maximum, two&#39;s complement number,
+</span><span class="cm"> *     and 0 otherwise
+</span><span class="cm"> *   Legal ops: ! ~ &amp; ^ | +
+</span><span class="cm"> *   Max ops: 10
+</span><span class="cm"> *   Rating: 1
+</span><span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">isTmax</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">!~</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">));</span>
+<span class="p">}</span></code></pre></div>
+<p>最大的补码正整数为 <code>0x7fffffff</code> ，令首位为 1 后会变为 <code>0xffffffff</code> ，取反后可以得到 0 。而其它数字进行如上操作后无法得到 0 。</p>
+
+<h3 id="alloddbits">allOddBits</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+</span><span class="cm"> * allOddBits - return 1 if all odd-numbered bits in word set to 1
+</span><span class="cm"> *   where bits are numbered from 0 (least significant) to 31 (most significant)
+</span><span class="cm"> *   Examples allOddBits(0xFFFFFFFD) = 0, allOddBits(0xAAAAAAAA) = 1
+</span><span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
+</span><span class="cm"> *   Max ops: 12
+</span><span class="cm"> *   Rating: 2
+</span><span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">allOddBits</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="mh">0xaa</span> <span class="o">|</span> <span class="p">(</span><span class="mh">0xaa</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mh">0xaa</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mh">0xaa</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
+  <span class="k">return</span> <span class="o">!~</span><span class="p">(</span><span class="n">val</span> <span class="o">|</span> <span class="p">(</span><span class="n">val</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span></code></pre></div>
+<p>要判断数字奇数位的取值是否为 1 ，需要先把奇数位的值取出来。通过制造 <code>0xaaaaaaaa</code> 这个掩码来与 x 进行和运算，取出奇数位的值。当且仅当奇数位全为 1 时，可以通过右移和或运算来取得 <code>0xffffffff</code> 。之后就很简单了。</p>
+
+<h3 id="isasciidigit">isAsciiDigit</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">//3
+</span><span class="c1"></span><span class="cm">/*
+</span><span class="cm"> * isAsciiDigit - return 1 if 0x30 &lt;= x &lt;= 0x39 (ASCII codes for characters &#39;0&#39; to &#39;9&#39;)
+</span><span class="cm"> *   Example: isAsciiDigit(0x35) = 1.
+</span><span class="cm"> *            isAsciiDigit(0x3a) = 0.
+</span><span class="cm"> *            isAsciiDigit(0x05) = 0.
+</span><span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
+</span><span class="cm"> *   Max ops: 15
+</span><span class="cm"> *   Rating: 3
+</span><span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">isAsciiDigit</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">upper_bound</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">sign</span> <span class="o">|</span> <span class="mh">0x39</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">lower_bound</span> <span class="o">=</span> <span class="o">~</span><span class="mh">0x30</span><span class="p">;</span>
+  <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">sign</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">upper_bound</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">;</span>
+  <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">sign</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">lower_bound</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">;</span>
+  <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">upper_bound</span> <span class="o">|</span> <span class="n">lower_bound</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+<p>题目实际上是判断 x 是否有在规定的整数范围内，而判断数字大小的方法就是做差，故只需要 <code>0x30 - x &gt;= 0</code> 以及 <code>x - 0x39 &gt;= 0</code> 即可。而判断数字的正负，只需要取最高位即可。当两个差值的最高同时为 0 时，返回 1 ，其余返回 0 。</p>
+
+<h3 id="conditional">conditional</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+</span><span class="cm"> * conditional - same as x ? y : z
+</span><span class="cm"> *   Example: conditional(2,4,5) = 4
+</span><span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
+</span><span class="cm"> *   Max ops: 16
+</span><span class="cm"> *   Rating: 3
+</span><span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">conditional</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="o">!!</span><span class="n">x</span><span class="p">;</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="o">~</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">z</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+<p>判断 x 可以通过 <code>!</code> 操作来进行判断，难点在于要使 y 和 z 中只有一个值返回。那么不妨尝试，当 x 为真时，让 z 变为 0 ，反之，让 y 为 0 ，这样就可以最后通过加法或者或运算返回两者中其中一个。而修改数字，则可以通过掩码来实现，故只要根据 x 的取值，创造 <code>0xffffffff</code> 和 <code>0x00000000</code> 出来就可以了。</p>
+
+<h3 id="islessorequal">isLessOrEqual</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+</span><span class="cm"> * isLessOrEqual - if x &lt;= y  then return 1, else return 0
+</span><span class="cm"> *   Example: isLessOrEqual(4,5) = 1.
+</span><span class="cm"> *   Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
+</span><span class="cm"> *   Max ops: 24
+</span><span class="cm"> *   Rating: 3
+</span><span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">isLessOrEqual</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">sign_bit</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">xsign</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">sign_bit</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">ysign</span> <span class="o">=</span> <span class="n">y</span> <span class="o">&amp;</span> <span class="n">sign_bit</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">signdiff</span> <span class="o">=</span> <span class="p">((</span><span class="n">xsign</span> <span class="o">^</span> <span class="n">ysign</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">rest</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">restsign</span> <span class="o">=</span> <span class="p">(</span><span class="n">rest</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">((</span><span class="o">!</span><span class="n">signdiff</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">!</span><span class="n">restsign</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="n">signdiff</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">xsign</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">));</span>
+<span class="p">}</span></code></pre></div>
+<p>虽然可以通过做差来判断大小，但是计算机运算时可能会出现溢出等问题，故较为妥当的做法是，先判断符号是否一样，符号一样再做差。而如何做差，如何通过位运算来进行条件判断，都可以在前面的题目中发现。</p>
+
+<h3 id="logicalneg">logicalNeg</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+</span><span class="cm"> * logicalNeg - implement the ! operator, using all of
+</span><span class="cm"> *              the legal operators except !
+</span><span class="cm"> *   Examples: logicalNeg(3) = 0, logicalNeg(0) = 1
+</span><span class="cm"> *   Legal ops: ~ &amp; ^ | + &lt;&lt; &gt;&gt;
+</span><span class="cm"> *   Max ops: 12
+</span><span class="cm"> *   Rating: 4
+</span><span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">logicalNeg</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">((</span><span class="n">x</span> <span class="o">|</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+<p>利用了补码的性质，只有 0 取反后和自己相加为 0 ，其它都会变成 -1 。</p>
+
+<h3 id="howmanybits">howManyBits</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* howManyBits - return the minimum number of bits required to represent x in
+</span><span class="cm"> *             two&#39;s complement
+</span><span class="cm"> *  Examples: howManyBits(12) = 5
+</span><span class="cm"> *            howManyBits(298) = 10
+</span><span class="cm"> *            howManyBits(-5) = 4
+</span><span class="cm"> *            howManyBits(0)  = 1
+</span><span class="cm"> *            howManyBits(-1) = 1
+</span><span class="cm"> *            howManyBits(0x80000000) = 32
+</span><span class="cm"> *  Legal ops: ! ~ &amp; ^ | + &lt;&lt; &gt;&gt;
+</span><span class="cm"> *  Max ops: 90
+</span><span class="cm"> *  Rating: 4
+</span><span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">howManyBits</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">sign</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">;</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">sign</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">x</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="o">~</span><span class="n">sign</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">b16</span><span class="p">,</span> <span class="n">b8</span><span class="p">,</span> <span class="n">b4</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b0</span><span class="p">;</span>
+
+  <span class="n">b16</span> <span class="o">=</span> <span class="o">!!</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">b16</span><span class="p">;</span>
+  <span class="n">b8</span> <span class="o">=</span> <span class="o">!!</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">b8</span><span class="p">;</span>
+  <span class="n">b4</span> <span class="o">=</span> <span class="o">!!</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">b4</span><span class="p">;</span>
+  <span class="n">b2</span> <span class="o">=</span> <span class="o">!!</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">b2</span><span class="p">;</span>
+  <span class="n">b1</span> <span class="o">=</span> <span class="o">!!</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">b1</span><span class="p">;</span>
+  <span class="n">b0</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="n">b16</span> <span class="o">+</span> <span class="n">b8</span> <span class="o">+</span> <span class="n">b4</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">+</span> <span class="n">b1</span> <span class="o">+</span> <span class="n">b0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+<p>整数部分最难的一道题，这里照搬了别人缩放的做法。判断最少需要多少位，由示例，对于正整数来说，只要找最高位的 1 即可，找到后在前面加个 0 ；对于负数，则需要找到最高位的 0 ，然后加上 1 ，如果对负数取反，那么和正数的情况就完全一样了。</p>
+
+<p>那么怎么找到最高位的 1 呢？这里采用很特别的方法，先判断前 16 位有没有，有则再去判断前16位前8位有没有，无则判断后16位中的前八位有没有，如此不断减半来判断，并通过变量进行记录。</p>
+
+<p>（这我怎么可能想得到啊！）</p>
+
+<h3 id="floatscale2">floatScale2</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+</span><span class="cm"> * floatScale2 - Return bit-level equivalent of expression 2*f for
+</span><span class="cm"> *   floating point argument f.
+</span><span class="cm"> *   Both the argument and result are passed as unsigned int&#39;s, but
+</span><span class="cm"> *   they are to be interpreted as the bit-level representation of
+</span><span class="cm"> *   single-precision floating point values.
+</span><span class="cm"> *   When argument is NaN, return argument
+</span><span class="cm"> *   Legal ops: Any integer/unsigned operations incl. ||, &amp;&amp;. also if, while
+</span><span class="cm"> *   Max ops: 30
+</span><span class="cm"> *   Rating: 4
+</span><span class="cm"> */</span>
+<span class="kt">unsigned</span> <span class="nf">floatScale2</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">uf</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">exp</span> <span class="o">=</span> <span class="p">(</span><span class="n">uf</span> <span class="o">&amp;</span> <span class="mh">0x7f800000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">23</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">sign</span> <span class="o">=</span> <span class="n">uf</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">exp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="p">(</span><span class="n">uf</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="n">sign</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">exp</span> <span class="o">==</span> <span class="mi">255</span><span class="p">)</span> <span class="k">return</span> <span class="n">uf</span><span class="p">;</span>
+  <span class="n">exp</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">exp</span> <span class="o">==</span> <span class="mi">255</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0x7f800000</span> <span class="o">|</span> <span class="n">sign</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">exp</span> <span class="o">&lt;&lt;</span> <span class="mi">23</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">uf</span> <span class="o">&amp;</span> <span class="mh">0x807fffff</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+<p>单精度的浮点数位表示如下：(from <a href="https://en.wikipedia.org/wiki/Single-precision_floating-point_format">Wikipedia</a>)</p>
+
+<table>
+<thead>
+<tr>
+<th>Exponent</th>
+<th>Significand zero</th>
+<th>Significand non-zero</th>
+<th>Equation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>0x00</td>
+<td>0, -0</td>
+<td>denormal numbers</td>
+<td>$(-1)^{\text{signbit}} \times 2^{-126} \times 0.\text{significandbits}$</td>
+</tr>
+
+<tr>
+<td>0x01, &hellip;, 0xfe</td>
+<td>normalized value</td>
+<td>mormalized value</td>
+<td>$(-1)^{\text{signbit}} \times 2^{\text{exponentbits} - 127} \times 1.\text{significandbits}$</td>
+</tr>
+
+<tr>
+<td>0xff</td>
+<td>infinity</td>
+<td>NaN</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>通常情况只需要 exponent 部分左移一位就可以达到乘 2 的效果了，不过自然有例外需要考虑。</p>
+
+<ul>
+<li>当数字为 denorm 时，exponent 部分为 0 ，只需要移动 significand 部分即可。不需要担心 significand 部分的 1 进入 exponent ，这无非就是 denorm 变为 norm 而已。</li>
+<li>当 exponent 为 255 时，直接返回 uf ，此时无论是无穷大还是 NaN 都会返回原来的值。</li>
+<li>最容易忽略的是，如果乘以 2 后 exponent 变为了 255 ，此时浮点数应该表示为无穷大，但是 significand 此时不一定为 0 ，需要额外处理，否则就会返回 NaN 了。</li>
+</ul>
+
+<h3 id="floatfloat2int">floatFloat2Int</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+</span><span class="cm"> * floatFloat2Int - Return bit-level equivalent of expression (int) f
+</span><span class="cm"> *   for floating point argument f.
+</span><span class="cm"> *   Argument is passed as unsigned int, but
+</span><span class="cm"> *   it is to be interpreted as the bit-level representation of a
+</span><span class="cm"> *   single-precision floating point value.
+</span><span class="cm"> *   Anything out of range (including NaN and infinity) should return
+</span><span class="cm"> *   0x80000000u.
+</span><span class="cm"> *   Legal ops: Any integer/unsigned operations incl. ||, &amp;&amp;. also if, while
+</span><span class="cm"> *   Max ops: 30
+</span><span class="cm"> *   Rating: 4
+</span><span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">floatFloat2Int</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">uf</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">exp</span> <span class="o">=</span> <span class="p">((</span><span class="n">uf</span> <span class="o">&amp;</span> <span class="mh">0x7f800000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">23</span><span class="p">)</span> <span class="o">-</span> <span class="mi">127</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">sign</span> <span class="o">=</span> <span class="p">(</span><span class="n">uf</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">frac</span> <span class="o">=</span> <span class="p">(</span><span class="n">uf</span> <span class="o">&amp;</span> <span class="mh">0x007fffff</span><span class="p">)</span> <span class="o">|</span> <span class="mh">0x00800000</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">uf</span> <span class="o">&amp;</span> <span class="mh">0x7fffffff</span><span class="p">))</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">exp</span> <span class="o">&gt;</span> <span class="mi">31</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0x80000000u</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">exp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">exp</span> <span class="o">&gt;</span> <span class="mi">23</span><span class="p">)</span> <span class="n">frac</span> <span class="o">&lt;&lt;=</span> <span class="p">(</span><span class="n">exp</span> <span class="o">-</span> <span class="mi">23</span><span class="p">);</span>
+  <span class="k">else</span> <span class="n">frac</span> <span class="o">&gt;&gt;=</span> <span class="p">(</span><span class="mi">23</span> <span class="o">-</span> <span class="n">exp</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">sign</span><span class="p">)</span> <span class="k">return</span> <span class="o">~</span><span class="n">frac</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">frac</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+<p>只需要让 significand 部分根据 exponent 部分进行移动即可，对于超出了整数范围的部分需要额外考虑，另外需要根据符号为来把正整数变为负数。</p>
+
+<h3 id="floatpower2">floatPower2</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+</span><span class="cm"> * floatPower2 - Return bit-level equivalent of the expression 2.0^x
+</span><span class="cm"> *   (2.0 raised to the power x) for any 32-bit integer x.
+</span><span class="cm"> *
+</span><span class="cm"> *   The unsigned value that is returned should have the identical bit
+</span><span class="cm"> *   representation as the single-precision floating-point number 2.0^x.
+</span><span class="cm"> *   If the result is too small to be represented as a denorm, return
+</span><span class="cm"> *   0. If too large, return +INF.
+</span><span class="cm"> *
+</span><span class="cm"> *   Legal ops: Any integer/unsigned operations incl. ||, &amp;&amp;. Also if, while
+</span><span class="cm"> *   Max ops: 30
+</span><span class="cm"> *   Rating: 4
+</span><span class="cm"> */</span>
+<span class="kt">unsigned</span> <span class="nf">floatPower2</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">150</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">150</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">127</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0x00400000</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">-</span> <span class="mi">127</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">127</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">127</span><span class="p">)</span> <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">127</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">23</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mh">0xff</span> <span class="o">&lt;&lt;</span> <span class="mi">23</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+<p>这道题并不难，但是不知道为什么测试会出现超时，无法判断这个解答的正误。</p>
+
+<h2 id="参考">参考</h2>
+
+<p><a href="https://skylark-workshop.xyz/blog/csapp-datalab-new/">Skylark Workshop</a></p>
+
+<p><a href="http://blog.scarboroughcoral.top/2019/02/12/csapp-lab-1/">扶桑树叶</a></p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>C&#43;&#43; - 面向对象编程</title>
+			<link>https://humpylin.github.io/posts/essentialcpp/chapter5-note/</link>
+			<pubDate>Sat, 06 Jul 2019 16:06:30 +0800</pubDate>
+			
+			<guid>https://humpylin.github.io/posts/essentialcpp/chapter5-note/</guid>
+			<description>这是一篇读书笔记，内容主要来自 Essential C++ 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和</description>
+			<content type="html"><![CDATA[
+
+<p>这是一篇读书笔记，内容主要来自 <em>Essential C++</em> 。</p>
+
+<h2 id="基本概念">基本概念</h2>
+
+<p>面向对象编程概念的两项最重要特质：<strong>继承 inheritance</strong> 和 <strong>多态 polymorphism</strong> 。</p>
+
+<p>继承定义了父子关系，父类定义了子类所有的 public interface 和 private implementation 。每个子类都可以增加和覆盖继承而来的东西。C++ 中父类称为基类 base class，子类称为延伸类 derived class 。有时会为了设计上的需要，创造出一个实际上不存在的类，这个类被成为抽象基类 abstract base class 。</p>
+
+<p>多态则是让基类的 pointer 或 reference 得以非常透明地指向其任何一个派生类地对象。如下函数，当传入的变量为 A 的子类时，会调用子类的 <code>check()</code> 函数，这就是多态。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="nf">check_</span><span class="p">(</span><span class="n">A</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">a</span><span class="p">.</span><span class="n">check</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>动态绑定 dynamic binding 时第三个概念。如上面那个函数，在非面向对象编程时，<code>check()</code> 会在编译时就确认到底是哪个类的 <code>check()</code> 被调用 （该方式被成为静态绑定 static binding），而面向对象则无法确定到底是调用哪个对象的 <code>check()</code> ，在运行时才会最终确定。</p>
+
+<p>继承使得可以定义一群互相关联、共享接口的类，多态使得可以通过抽象基类来操控共通接口。需注意，多态和动态绑定只有在使用 pointer 或 reference 时才能够发挥作用。</p>
+
+<h2 id="c-中的基本组成">C++ 中的基本组成</h2>
+
+<p>一般 member function 会在编译的时候被静态解析，如果想令其运行时动态解析，需要在函数声明前加上 virtual 。</p>
+
+<p>当创建对象时，会先运行基类的 constructor 再运行派生类的，而当销毁时，会先运行派生类的 destructor 再运行基类的。</p>
+
+<p>基类可以 public、protected 和 private 三种方式进行继承（甚至还有多重继承和虚继承），方法如下。这里 Book 继承了 LibMat，如果对 LibMat 中存在的函数重新定义，就会覆盖之前的函数。被声明为 protected 的成员都可以直接被派生类访问，除此之外，都不能直接访问 protected 成员。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span><span class="err"> </span><span class="nc">Book</span> <span class="o">:</span> <span class="k">public</span> <span class="n">LibMat</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// something
+</span><span class="c1"></span><span class="k">protected</span><span class="o">:</span>
+    <span class="n">string</span> <span class="n">smth</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h2 id="定义一个抽象基类">定义一个抽象基类</h2>
+
+<p>先找出所有子类共通的操作行为，然后看看哪些行为时和类型有关系的（type-dependent），再决定每个操作的访问层级（access level，就是 public、private、protected 之类的）。</p>
+
+<p>每个虚函数（virtual function），要么得有定义，要么被设置为纯虚函数（pure virtual function）。如果这个函数对目前这个类没有什么意义的话，可以给其赋值为 0 ，表示这是一个纯虚函数。如果一个类有纯虚函数的话，那么无法给这个类创建任何对象。</p>
+
+<p>一般来说，凡是基类定义了虚函数的，都需要将 destructor 声明为 virtual 。另外即便 destructor 没有什么意义，也最好不要设置为纯虚函数。</p>
+
+<h2 id="定义一个派生类">定义一个派生类</h2>
+
+<p>派生类进行继承声明时，基类的定义必须要已经存在。而对虚函数进行定义时，无论是在类里面还是类外面，都不需要加 virtual 。另外定义的时候，如果使用了动态解析的函数，但是是已经确定的，可以使用 class scope （就是 <code>ClassName::function()</code> 这样的）来说明是哪个类，让编译器静态解析。</p>
+
+<h2 id="派生类的-constructor-和-destructor">派生类的 constructor 和 destructor</h2>
+
+<p>创建对象的时候会先使用基类的 constructor，后使用派生类的。基类可能有多个 constructor ，所以定义派生类的 constructor 时需要进行指定并提供相关值，类似下面</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+
+<span class="kr">inline</span> <span class="n">Fibonacci</span><span class="o">::</span>
+<span class="n">Fibonacci</span><span class="p">(</span><span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">beg_pos</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">num_sequence</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">beg_pos</span><span class="p">,</span> <span class="n">_elems</span><span class="p">)</span>
+    <span class="p">{}</span>
+</code></pre></div>
+<p>而如果没有明确指出，则会调用基类的 default constructor 。</p>
+
+<p>而 destructor 就不需要这样明确指出了。</p>
+
+<h2 id="派生类中的虚函数">派生类中的虚函数</h2>
+
+<p>如果要进行函数的覆盖，那么派生类中的函数必须要和基类的一模一样，除非基类中的函数返回类型是基类自己，那派生函数也可以改成派生类自己。<strong>在使用虚函数的时候，要使用 pointer 或者 reference 来进行使用，否则不会根据实际对象的类型来使用函数。</strong></p>
+
+<h2 id="运行时类型的鉴别机制">运行时类型的鉴别机制</h2>
+
+<p><code>typeid</code> 运算符在 <code>typeinfo</code> 头文件中，会返回一个 <code>type_info</code> 对象，里面存储着与类型相关的种种信息，该对象的 <code>name()</code> 会返回一个 <code>const char *</code> ，用以表示类名。另外 <code>type_info</code> 对象也支持等于和不等于两个比较运算符。</p>
+
+<p>如果通过 <code>typeid</code> 得知了具体的类型，想要进行转换，可以使用 <code>static_cast</code> 运算符，如下所示。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">)</span> <span class="o">==</span> <span class="k">typeid</span><span class="p">(</span><span class="n">Fibonacci</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">Fibonacci</span> <span class="o">*</span><span class="n">pf</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Fibonacci</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">ps</span><span class="p">);</span>
+    <span class="n">pf</span><span class="o">-&gt;</span><span class="n">gen_elems</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>不过编译器不会保证转换操作完成正确，如果没有进行判断就直接转换可能会有危险。而 <code>dynamic_cast</code> 则会在运行的时候进行检测，如果不能进行转换，则会返回 NULL ，如下所示。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">Fibonacci</span> <span class="o">*</span><span class="n">pf</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Fibonacci</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">ps</span><span class="p">))</span>
+    <span class="n">pf</span><span class="o">-&gt;</span><span class="n">gen_elems</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
+</code></pre></div>
+<p>类型转换的作用就是，如果基类中没有定义相关成员，那么可以通过类型转换，来访问派生类中的成员。此外，<code>dynamic_cast</code> 和 <code>typeid</code> 都是运行时类型鉴别 Run-Time Type Identification ，所以也会比较慢。</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>C&#43;&#43; - 基于对象编程</title>
+			<link>https://humpylin.github.io/posts/essentialcpp/chapter4-note/</link>
+			<pubDate>Wed, 03 Jul 2019 14:19:07 +0800</pubDate>
+			
+			<guid>https://humpylin.github.io/posts/essentialcpp/chapter4-note/</guid>
+			<description>这是一篇读书笔记，内容主要来自 Essential C++ 的第四章。 如何实现一个 Class 先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而</description>
+			<content type="html"><![CDATA[
+
+<p>这是一篇读书笔记，内容主要来自 Essential C++ 的第四章。</p>
+
+<h2 id="如何实现一个-class">如何实现一个 Class</h2>
+
+<p>先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而 s 就是对象。类一般会有内部的数据，以及对数据进行操作的函数，如 <code>s.length()</code> 就可以获得字符串的长度。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+</code></pre></div>
+<p>创建一个类所需要的操作如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span><span class="err"> </span><span class="nc">Stack</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// something
+</span><span class="c1"></span><span class="k">private</span><span class="o">:</span>
+    <span class="c1">// something
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
+<p>只需要在注释处对类里面的变量和函数进行定义即可，在 public 的位置的数据和函数可以被外界访问，而 private 的只能自己访问。</p>
+
+<p>所有 member function 都必须在 class 主体内进行声明，在 class 主体内定义的函数会自动被视为 inline 函数。class 的定义和 inline member function 通常都会被放在与 class 同名的头文件中，而 non-inline member function 会放在程序的源代码中（ 诸如.cpp, .cc, .c）。</p>
+
+<p>所有头文件都应该使用 <code>#define</code> 来防止头文件被多重包含, 命名格式当是: <code>&lt;PROJECT&gt;_&lt;PATH&gt;_&lt;FILE&gt;_H_</code> . （<a href="https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/headers/">https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/headers/</a>）另外一般不会在头文件中加入 <code>using namespace xxx;</code> 会导致传染，在 <code>.cc</code> 文件里面可以使用。</p>
+
+<h2 id="构造函数和析构函数">构造函数和析构函数</h2>
+
+<h3 id="构造函数">构造函数</h3>
+
+<p>构造函数（constructor）就是创建对象的时候会调用的帮助进行初始化的函数，可以被重载。</p>
+
+<p>constructor 的函数名必须和 class 的名称相同。语法规定，constructor 不应该指定返回类型，也不用返回任何值。它可以被重载（overloaded）。</p>
+
+<p>调用无参数的 constructor 时，只可以使用 <code>ClassName c;</code> 的形式，而不能使用 <code>ClassName c();</code> 的形式。原因是，C++ 兼容 C 语言，而 C 会把后者看成一个返回 <code>ClassName</code> 类型的函数。</p>
+
+<p>default constructor 有两种情况，一种是没有参数，一种是使用默认值，如下。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+
+<span class="cm">/* 不接受任何参数的情况 */</span>
+<span class="n">Triangular</span><span class="o">::</span><span class="n">Triangular</span><span class="p">()</span>
+<span class="p">{</span>	<span class="c1">// default constructor
+</span><span class="c1"></span>	<span class="n">_length</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ 	<span class="n">_beg_pos</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ 	<span class="n">_next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* 使用默认值的情况 */</span>
+<span class="k">class</span><span class="err"> </span><span class="nc">Triangular</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+    	<span class="n">Triangular</span><span class="p">(</span><span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bp</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">Triangular</span><span class="o">::</span><span class="n">Triangular</span><span class="p">(</span><span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">_length</span> <span class="o">=</span> <span class="n">len</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nl">len</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">_beg_pos</span> <span class="o">=</span> <span class="n">bp</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">:</span> <span class="nl">bp</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">_next</span> <span class="o">=</span> <span class="n">_beg_pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="member-initialization-list">Member Initialization List</h3>
+
+<p>大概为如下形式的：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">Triangular</span><span class="o">::</span><span class="n">Triangular</span><span class="p">(</span><span class="k">const</span> <span class="n">Triangular</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">_length</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">_length</span><span class="p">),</span>
+	  <span class="n">_beg_pos</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">_beg_pos</span><span class="p">),</span> <span class="n">_next</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">_beg_pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">{}</span>
+</code></pre></div>
+<p>在没有 member object 的情况两者是等价的，当有 member object 的时候就必须要使用 member initialization list 来进行初始化。</p>
+
+<h3 id="析构函数">析构函数</h3>
+
+<p>当 object 结束生命的时候，会自动调用 destructor 来处理善后，主要用来释放生命周期中分配的资源，比如说在 constructor 中的 <code>_pmat = new double[row * col]</code> ，在 destructor 中就需要使用 <code>delete [] _pmat</code> 来释放资源。</p>
+
+<p>Destructor 不是绝对必要的。</p>
+
+<h3 id="memberwise-initialization">Memberwise Initialization</h3>
+
+<p>进行如下操作</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">Triangular</span> <span class="nf">tri1</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+<span class="n">Triangular</span> <span class="n">tri2</span> <span class="o">=</span> <span class="n">tri1</span><span class="p">;</span>
+</code></pre></div>
+<p>此时 tri1 的 class data member 会被全部复制到 tri2 中，这个过程就是 default memberwise initialization 。</p>
+
+<p>但是当 tri1 存在动态分配的产生的指针时，这个指针的值也会分配到 tri2 中，于是两者会共用同一块内存空间。而当 tri1 销毁时，tri2 的指针就会指向一个无效的地址了。为了解决这个问题，需要重新写一个像下面那样的构造函数。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">Triangular</span><span class="o">::</span><span class="n">Triangular</span><span class="p">(</span><span class="k">const</span> <span class="n">Triangular</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// write something here
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
+<h2 id="mutable-and-const">Mutable and Const</h2>
+
+<p>调用函数的时候，如果参数加了 const ，编译器会保证参数不会被修改。而函数的参数列表后面如果加了 const 修饰符，这个 member function 会被检查是否有修改 class object 的内容。此外，被 const 修饰的 member function 如果返回成员变量，必须要把返回类型也用 const 修饰。</p>
+
+<p>如果被修改的成员变量其实修改了也没有关系，可以声明的时候加 mutable 进行修饰，那么在使用 const 的函数的时候，这个值被修改了也不会报错。</p>
+
+<h2 id="this">This</h2>
+
+<p>类似 Python 里面的 self ，不过 this 是一个指针，而不是引用。</p>
+
+<h2 id="static-class-members">Static Class Members</h2>
+
+<h3 id="static-data-member">Static Data Member</h3>
+
+<p>被标记为 static 后，可以在同一个类的所有对象中被访问，对于 class 来说只有一份实体，有点点类似全局对象。除了在类里使用 static 声明外，还需要在 class 外面进行初始化（static 成员的空间是在初始化的时候进行分配的），在外面就不需要加上 static 了。</p>
+
+<h3 id="static-member-function">Static Member Function</h3>
+
+<p>如果 member function 的调用和任何 non-static data memebr 都没有关系的话，可以在函数声明前面加上一个 static ，这样就可以不创建任何对象，然后调用的时候直接用 <code>ClassName::FunctionName()</code> 来调用。在里面使用 static 声明后，在外面定义就不需要重复写 static 了。</p>
+
+<h2 id="运算符重载">运算符重载</h2>
+
+<p>运算符函数看起来就像普通函数，唯一差别是它不用指定名称，只需要在运算符前加上关键字 operator 就可以了。运算符重载的规则：</p>
+
+<ul>
+<li>不可以使用 <code>.</code> ，<code>.*</code> ，<code>::</code> 和 <code>?:</code> 。</li>
+<li>运算符的操作数不可以改变。</li>
+<li>运算符的优先级不变。</li>
+<li>参数列表中必须要有一个是 class 类型。</li>
+</ul>
+
+<p>运算符的定义方式，可以像 member function ，也可以像 non-member function ，如下所示。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+
+<span class="cm">/* member function */</span>
+<span class="kr">inline</span> <span class="kt">int</span> <span class="n">Triangular_iterator</span><span class="o">::</span>
+<span class="k">operator</span><span class="o">*</span><span class="p">()</span> <span class="k">const</span> 
+<span class="p">{</span>
+    <span class="n">check_integrity</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">Triangular</span><span class="o">::</span><span class="n">_elems</span><span class="p">[</span><span class="n">_index</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="cm">/* non-member function */</span>
+<span class="kr">inline</span> <span class="kt">int</span> 
+<span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="n">Triangular_iterator</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">rhs</span><span class="p">.</span><span class="n">check_integrity</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">Triangular</span><span class="o">::</span><span class="n">_elems</span><span class="p">[</span><span class="n">_index</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>需要注意，non-member function 没有访问 non-public member 的权力。</strong>如果需要让上面的第二个函数通过编译，需要将其指定为 friend ，具体见下面。</p>
+
+<p><code>++</code> 运算符有前置和后置两种版本，编译时如果参数列表为空，则视为运算符前置，如果参数列表为 <code>(int)</code> 则视为后置。</p>
+
+<h2 id="friend">Friend</h2>
+
+<p>Friend 具备了与 class member function 相同的访问权限，可以访问 class 的 private member 。</p>
+
+<p>而对于上面提及的 <code>operator*()</code> ，需要在 Triangular 和 Triangular_iterator 里面将 <code>operator*()</code> 声明为 friend （只要在函数前面加上 friend 就可以了，可以出现在 class 里的任何位置，不受 private 和 public 的影响）。</p>
+
+<p>另外可以在两个类之间建立 friend，这样被标记为 friend 的类的所有 member function 都成为了自己的 friend，使用如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span><span class="err"> </span><span class="nc">Triangular</span> <span class="p">{</span>
+    <span class="k">friend</span> <span class="k">class</span><span class="err"> </span><span class="nc">Triangular_iterator</span><span class="p">;</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
+<p>不过，如果实在要访问 private member ，也可以在被访问的类里添加类似 <code>vector.size()</code> 这样会返回 private member 值的 public 函数，来实现访问。使用 friend 通常是出于效率上的考虑。</p>
+
+<h2 id="重载-iostream-运算符">重载 iostream 运算符</h2>
+
+<p>一般重载 input 和 output 运算符的函数不会作为 member function ，因为 member function 要求对象在操作符的左边。</p>
+
+<p>示例如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+
+<span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">Triangular</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;( &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">rhs</span><span class="p">.</span><span class="n">beg_pos</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span>
+        <span class="o">&lt;&lt;</span> <span class="n">rhs</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; )&#34;</span><span class="p">;</span>
+    
+    <span class="n">rhs</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">length</span><span class="p">(),</span> <span class="n">rhs</span><span class="p">.</span><span class="n">beg_pos</span><span class="p">(),</span> <span class="n">os</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">os</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>]]></content>
+		</item>
+		
+		<item>
+			<title>SAP VT 项目面试经历</title>
+			<link>https://humpylin.github.io/posts/sap-vt-interview/</link>
+			<pubDate>Wed, 15 May 2019 13:39:55 +0800</pubDate>
+			
+			<guid>https://humpylin.github.io/posts/sap-vt-interview/</guid>
+			<description>坐标上海，今年（2019）的 VT 项目分三个环节：线上测试、电话面试以及群体面试。 线上笔试 线上测试有 20 道选择题，以及两道编程题。选择题覆盖的范围</description>
+			<content type="html"><![CDATA[
+
+<p>坐标上海，今年（2019）的 VT 项目分三个环节：线上测试、电话面试以及群体面试。</p>
+
+<h2 id="线上笔试">线上笔试</h2>
+
+<p>线上测试有 20 道选择题，以及两道编程题。选择题覆盖的范围极广，基本上一道题考了一类知识点，而我一个大二的怎么可能知道那么多东西呀。印象中会做的题目好像也就两三道，大部分题目都是乱选。朋友总结了考了下面的内容</p>
+
+<blockquote>
+<p>C/C++，Java，Python，Linux，Docker，数据库，jQuery，HTML 5，遗传算法，线性规划</p>
+</blockquote>
+
+<p>印象中还有很多面向对象的内容，以及还有敏捷开发。</p>
+
+<p>然后就是两道编程题，一道题是水仙花数，还有一道题忘记了。编程题比选择题容易非常多，没几分钟就可以做完了，数据量不大，不需要特别的巧思，而且还不需要处理输入输出。</p>
+
+<p>这一部分我做得不好，毕竟我会的东西真的不多。在之后面试候场的时候问了一下东南大学的同学，他说自己也不会多少，算是有点点小欣慰吧。</p>
+
+<h2 id="电话面试">电话面试</h2>
+
+<p>听朋友说她的 Google EP 的电话面试是一边在 Google Docs 上敲代码，一边用英文给面试官讲解，这让我对电话面试非常恐惧。不过接到电话后发现 SAP VT 的电话面试倒是缓和得可怕。就问了一下个人信息，会不会读研，会不会回自己的家乡，对公司的了解等等，感觉像是在反复确认我是否最后会真的留在公司里。而且电话面试是中文的，唯一英文的部分是要求来个简短的自我介绍。</p>
+
+<p>在电话里和 HR 说说笑笑就过去了，气氛十分融洽。我觉得应该表现出自己并没有考研的打算，以及准备留在上海，那么应该都不会被刷下来吧。对之后的面试参考价值不是很大。</p>
+
+<h2 id="群体面试">群体面试</h2>
+
+<p>这里发生了一件特别有意思的事情。一开始我进到 SAP 里面，保安也没有问我什么，于是我便觉得，可能外面的区域是可以自由参观的吧？后来觉得离面试还早，就出去了。第二次进去的时候，没想到就被保安拦住了，然后叫我在门卫处登记，我才明白原来只是刚才他们在摸鱼……</p>
+
+<p>面试前一天我在网上看别人的面经，面 SAP VT 的人不多，而且很多都是大三或者研究生了，没有太大的参考价值，不过我大概知道了形式，以及英文面试这个可怕的事实。不过当我真正面试的时候，却发现并不是英文的，这倒是蛮诡异的。</p>
+
+<p>这次面试分为三部分，一轮讨论，两轮技术面。</p>
+
+<h3 id="群体讨论">群体讨论</h3>
+
+<p>一开始的面试是八个人进行的，讨论的主题是公司决定帮助贫困员工，给了我们几个候选者的情况，让我们决定优先级。还没有得到邮件通知，所以具体表现得怎么样还无从得知，我觉得应该还算可以吧？不过我觉得最后总结者的角色很让人印象深刻的，我这一次是一个很霸气的小女孩抢着来总结的，我一开始很不高兴，但是当她开始总结的时候，确实有条理得可怕，而且最后的总结部分，面试官确实都有在认真听。所以如果有能力的话，最好争取进行总结。</p>
+
+<h3 id="第一轮技术面试">第一轮技术面试</h3>
+
+<p>接着分成了两组来进行技术面试。</p>
+
+<p>第一个面试官一开始就问了一些对公司的了解，然后问了一些数据结构和算法的基础知识。可能是觉得面对大二真的没什么好问的吧，所以没有问什么特别难的问题。不过反过来想，那问的基本都是基础中的基础了，也就是必须得掌握的，那么其实记一下还蛮有意义的。印象中问题如下。</p>
+
+<ul>
+<li>对 SAP 的了解？</li>
+</ul>
+
+<p>这个问题我们在场的四个人都没有怎么回答，表现得很不好，毕竟我也真的没有特别认真地去了解过，我觉得这就是准备的不充分。如果让面试官觉得自己对公司很了解，很想来的话，应该还是会增加点印象分的吧。这一部分我只是凭感觉作答了，不知道面试官对这种凭空作答持怎样的态度。</p>
+
+<ul>
+<li>什么是云计算？</li>
+</ul>
+
+<p>完全不了解，这一部分我也是凭空作答。</p>
+
+<ul>
+<li>数组和链表的区别。</li>
+</ul>
+
+<p>数组在存储的时候是在内存中顺序存储的，而链表不是，链表是动态分配空间来进行存储的。所以在访问的时候，数组可以直接计算出元素在内存中的地址来进行快速访问，而链表必须从头开始一个个访问。不过因为数组需要先在内存中确定好存储空间，所以不能动态地变长，而链表的长度可以随意改变。</p>
+
+<p>（在这里不知道怎么回事，问了我指针是什么，我说指针就是数据的地址的值，但是面试官还是重新问了一遍，听到我的重复之后就没再问了。难道我理解错了？）</p>
+
+<ul>
+<li>什么是类和对象？</li>
+</ul>
+
+<p>事实上我完全没有学过类和对象，所以我只是简单地说了一下，类将数据已经操作数据的方法进行了封装，是一种抽象，同时还可以继承，还有多态。然后就让给其它同学答题了。</p>
+
+<ul>
+<li>Java 对比 C++ 有什么不同</li>
+</ul>
+
+<p>我完全没有学过 Java 啊，C++ 也是当 C 来写的！我只记得某次在知乎上看到类似的东西，然后凭印象作答。我的回答是，Java 是严格面向对象的语言，所有东西都必须要看作对象，写的东西最外面都要包上一个 class ；而 C++ 不是严格面向对象的，完全可以把它当成 C 来写。</p>
+
+<ul>
+<li>栈和队列是什么？</li>
+</ul>
+
+<p>太简单了…… 直接让其它同学来回答了。</p>
+
+<ul>
+<li>二叉树是什么？</li>
+</ul>
+
+<p>我的回答：有一个根节点，然后它有左子树和右子树，左子树和右子树也有着类似的结构。另外，这个左子树和右子树也可以为空。</p>
+
+<p>上面都是口头作答，然后就是手写代码了。（只要求写思路，不过我顺便把代码写上了）</p>
+
+<ul>
+<li>给一个链表，找到中间的结点。</li>
+</ul>
+
+<p>我的做法是，先遍历一遍求出长度，再根据长度找中间结点。</p>
+
+<ul>
+<li>有序链表去重。</li>
+</ul>
+
+<p>直接遍历一遍应该就可以了。</p>
+
+<ul>
+<li>写出一个排序算法。</li>
+</ul>
+
+<p>本来想写快速排序，却发现不记得了，于是写了个选择排序……</p>
+
+<p>第一轮技术面试到这里就结束了，印象中好像面试官也并没有拿笔记录些什么东西，只是把手写的思路给收走了。</p>
+
+<h3 id="第二轮技术面试">第二轮技术面试</h3>
+
+<p>第二轮技术面试则更是什么记录都没有了。面试官一开始问了一下求圆周率的方法，我开始说起高三数学课上讲的“布丰投针”的实验，大概就是用实验来进行逼近。然后面试官就让我们写个蒙特卡罗方法求圆周率的代码，这个大一写过作业，一下子就写完了。然后面试官给了个前端开发的例子，让我们从软工的角度去分析它。这一部分我就完全懵了，只能偶尔参与一下讨论 -_-#</p>
+
+<p>第二个面试官什么都没记录，真不知道是稳了还是凉了。</p>
+
+<h2 id="后记">后记</h2>
+
+<p>最后成功收到邮件，拿到 offer 了。</p>
+
+<p>和第二天面试的同学联系后，我才发现，原来我觉得水，真的只是运气好罢了。第二天面试的题目包含 Python 爬虫、 Java 多线程等，而且还要求用英文来介绍自己的项目，和我的面试简直是天差地别。结果是，我的同学虽然各方面都远优于我，但是却被刷下来了。看来除了努力提升自己的实力，找工作还得看运气。</p>
+
+<p>希望能够通过 VT 项目得到很好的锻炼吧。</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Vim 学习记录 - 基本操作</title>
+			<link>https://humpylin.github.io/posts/vim-learning-basic/</link>
+			<pubDate>Sun, 12 May 2019 09:44:24 +0800</pubDate>
+			
+			<guid>https://humpylin.github.io/posts/vim-learning-basic/</guid>
+			<description>在这里记录目前自己学习到的 Vim 的基本用法，也方便自己以后忘了后来翻阅。随着对 Vim 的使用，文章应该会变得越来越长，不过也可能因为放弃了所以一直没变</description>
+			<content type="html"><![CDATA[
+
+<p>在这里记录目前自己学习到的 Vim 的基本用法，也方便自己以后忘了后来翻阅。随着对 Vim 的使用，文章应该会变得越来越长，不过也可能因为放弃了所以一直没变化就是了。</p>
+
+<h2 id="基本">基本</h2>
+
+<p>Vim 有三种模式，Normal Mode，Insert Mode 和 Visual Mode。Normal Mode 下可以进行很快的光标移动，并且调用各种命令，Insert Mode 则是编辑模式，码字自然就在 Insert Mode 下了，Visual Mode 没怎么用过，之后再进行补充。可以通过 <code>:help &lt;command&gt;</code> 来查看相关帮助。</p>
+
+<h3 id="编辑模式">编辑模式</h3>
+
+<p>刚刚打开 Vim 的时候会进入 Normal Mode ，要想开始打字的话需要进入 Insert Mode 。可以通过下面几个命令来进入。</p>
+
+<p><code>i</code> 可以在光标的左侧开始插入， <code>a</code> 可以在光标的右侧进行插入。<code>I</code> 可以在行首第一个不是空格的字符前插入，<code>A</code> 可以在行末插入。<code>o</code> 则会在当前行下面新建一行来，并把光标移动到新建行来插入，<code>O</code> 则是在上面新建一行。</p>
+
+<p>通过 <code>ESC</code> 可以退出编辑模式。</p>
+
+<h3 id="保存和退出">保存和退出</h3>
+
+<p>使用 <code>:w</code> 可以进行保存，使用 <code>:q</code> 可以进行退出。另外还可以拼在一起变成 <code>:wq</code> 来保存并退出。</p>
+
+<p>此外，文件修改过后是无法直接使用 <code>:q</code> 来退出的，需要加上感叹号变成 <code>:q!</code> 来强制退出。</p>
+
+<p>当然，上面说的是在 Normal Mode 中进行的。</p>
+
+<h2 id="光标移动">光标移动</h2>
+
+<p>最简单的，使用 <code>hjkl</code> 来进行光标移动。一开始觉得这点非常反人类，不过习惯之后会觉得方便的可怕，换别的编辑器都变得不习惯了。</p>
+
+<p>用 <code>%</code> 可以匹配 <code>([{}])</code> 等括号进行跳转，同时对 <code>/* */</code> 这样 C-style 的注释有效。</p>
+
+<h3 id="以单词为单位">以单词为单位</h3>
+
+<p><code>w</code> 可以跳转至下一个单词的首字母处。 <code>e</code> 可以跳转至当前单词的尾字母处，如果已经在末尾了，会跳转到下一个单词的末尾。而 <code>b</code> 则会跳转到上一个单词的首字母处。</p>
+
+<p><code>W</code> <code>E</code> 和 <code>B</code> 有相似的功能，区别在于小写的几个命令会把 <code>foo-bar-baz</code> 看成三个单词，而大写的这几个命令会把它视为一个单词，用 <code>w</code> 的时候会依次停留在 <code>f</code> <code>-</code> <code>b</code> <code>-</code> <code>b</code> 上面，而用 <code>W</code> 的话而只会停留在 <code>f</code> 一次。关于这个可以看看 <a href="https://stackoverflow.com/questions/14390519/whats-the-difference-between-b-and-b-in-vim">这个回答</a> 以及里面提及的 <code>:help iskeyword</code> 。</p>
+
+<h2 id="剪删帖">剪删帖</h2>
+
+<p><code>x</code> 可以删除目前光标所在的字符。</p>
+
+<p><code>dd</code> 可以将当前行剪切到寄存器中，<code>p</code> 可以将寄存器中的内容粘贴到下一行，类似的，<code>P</code> 可以将寄存器的内容粘贴到上一行。如果寄存器中没有什么重要内容，那么完全可以当作删除来用。</p>
+
+<p><code>yy</code> 可以将当前行复制到寄存器中，其实也就相当于 <code>ddP</code> 了。</p>
+
+<p>至于寄存器是什么，现在先不要理会，就当成剪贴板吧。</p>
+
+<h2 id="参考">参考</h2>
+
+<p><a href="https://coolshell.cn/articles/5426.html">简明 VIM 练级攻略</a></p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>摩根士丹利宣讲会笔试</title>
+			<link>https://humpylin.github.io/posts/morgan-test/</link>
+			<pubDate>Thu, 14 Mar 2019 21:29:17 +0800</pubDate>
+			
+			<guid>https://humpylin.github.io/posts/morgan-test/</guid>
+			<description>今天摩根士丹利来学校里进行宣讲，一开始是惯例地讲了许多公司的福利呀等等，对于还不知道可不可能可以去实习的我来说实在没什么价值。不过可以切实感</description>
+			<content type="html"><![CDATA[<p>今天摩根士丹利来学校里进行宣讲，一开始是惯例地讲了许多公司的福利呀等等，对于还不知道可不可能可以去实习的我来说实在没什么价值。不过可以切实感受到的一点是，技术上的沟通应该多半是英文的，毕竟宣讲的人一旦提到技术上的名字，都是英文，大概是平常用的都是英文的缘故吧。</p>
+
+<p>后来就现场笔试了，笔试的时间为30分钟，之前没有过笔试经历，不过感觉时间颇短，应该没有什么题目。拿到试卷后感觉题目非常简单，不知道是因为来学校宣讲的缘故，还是说之后可能还有其它笔试的缘故。抑或是题目里其实有超级大坑，但是我完全没有发现？</p>
+
+<p>题目大概如下：</p>
+
+<ol>
+<li>写出一个函数，判断两个单词是否为彼此的 Anagram 。（这里有一个很诡异的地方，题目给的函数声明里面返回值是字符串。）</li>
+<li>给定一个字符串和一个字符串列表，判断列表中是否含有该字符串的 Anagram ，有的话就返回 Anagram ，没有则返回 null 。（可以使用 Question 1 里面的函数）</li>
+<li>给定两组字符串列表，判断后面的字符串列表中，是否含有前面字符串列表中字符串的 Anagram ，返回一个列表。（可以使用 Question 2 的函数）</li>
+</ol>
+
+<p>题目里的函数声明如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="nf">isAnagram</span><span class="o">(</span><span class="n">String</span> <span class="n">word1</span><span class="o">,</span> <span class="n">String</span> <span class="n">word2</span><span class="o">);</span>
+<span class="n">String</span> <span class="nf">findAnagram</span><span class="o">(</span><span class="n">String</span> <span class="n">word</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">dictionary</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">findAnagrams</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">words</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">dictionary</span><span class="o">);</span></code></pre></div>
+<p>在第三题中，还有提醒：如果直接使用 Question 2 中的函数，性能可能不太好，需要减少不必要的操作来优化性能。</p>
+
+<p>前面两题看起来挺好做的，第三题倒是笔试的时候完全想不到优化的方法了，平时还是太少动脑了。笔试完后才想到，如果直接调用 <code>findAnagram</code> 则列表里的每个单词调用的时候都要统计一遍 <code>dictionary</code> 里面的词频，这就是不必要的操作。并且处理方法还挺简单的，预处理一下就好了。</p>
+
+<p>不过不管之后想的优化方法对不对，笔试都没写出来已经凉了吧……</p>
+]]></content>
+		</item>
+		
+	</channel>
+</rss>
