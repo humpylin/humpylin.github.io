@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Sap on Humphreylin&#39;s Blog</title>
+    <title>SAP on Humphrey Lin&#39;s Blog</title>
     <link>https://humpylin.github.io/tags/sap/</link>
-    <description>Recent content in Sap on Humphreylin&#39;s Blog</description>
+    <description>Recent content in SAP on Humphrey Lin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <language>en</language>
     <lastBuildDate>Wed, 15 May 2019 13:39:55 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/tags/sap/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +13,10 @@
     
     <item>
       <title>SAP VT 项目面试经历</title>
-      <link>https://humpylin.github.io/posts/sap-vt-interview/</link>
+      <link>https://humpylin.github.io/post/sap-vt-interview/</link>
       <pubDate>Wed, 15 May 2019 13:39:55 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/posts/sap-vt-interview/</guid>
+      <guid>https://humpylin.github.io/post/sap-vt-interview/</guid>
       <description>坐标上海，今年（2019）的 VT 项目分三个环节：线上测试、电话面试以及群体面试。 线上笔试 线上测试有 20 道选择题，以及两道编程题。选择题覆盖的范围</description>
     </item>
     

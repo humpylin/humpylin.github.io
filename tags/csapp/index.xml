@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Csapp on Humphreylin&#39;s Blog</title>
+    <title>CSAPP on Humphrey Lin&#39;s Blog</title>
     <link>https://humpylin.github.io/tags/csapp/</link>
-    <description>Recent content in Csapp on Humphreylin&#39;s Blog</description>
+    <description>Recent content in CSAPP on Humphrey Lin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <language>en</language>
     <lastBuildDate>Mon, 29 Jul 2019 12:06:14 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/tags/csapp/index.xml" rel="self" type="application/rss+xml" />
@@ -14,10 +13,10 @@
     
     <item>
       <title>CSAPP - Data Lab 记录</title>
-      <link>https://humpylin.github.io/posts/csapp/data-lab/</link>
+      <link>https://humpylin.github.io/post/csapp/data-lab/</link>
       <pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/posts/csapp/data-lab/</guid>
+      <guid>https://humpylin.github.io/post/csapp/data-lab/</guid>
       <description>这里记录的 Data Lab 是 CSAPP 18年11月更新的版本，写的过程中遇到了很多困难，于是许多题目就照搬别人的了。切身感受到，看到别人写过的东西，才会知道自己</description>
     </item>
     

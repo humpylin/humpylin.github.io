@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Humphreylin&#39;s Blog</title>
+    <title>Tags on Humphrey Lin&#39;s Blog</title>
     <link>https://humpylin.github.io/tags/</link>
-    <description>Recent content in Tags on Humphreylin&#39;s Blog</description>
+    <description>Recent content in Tags on Humphrey Lin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <language>en</language>
     <lastBuildDate>Mon, 29 Jul 2019 12:06:14 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -31,7 +30,7 @@
     </item>
     
     <item>
-      <title>Csapp</title>
+      <title>CSAPP</title>
       <link>https://humpylin.github.io/tags/csapp/</link>
       <pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
       
@@ -40,7 +39,7 @@
     </item>
     
     <item>
-      <title>Csapp Lab</title>
+      <title>CSAPP Lab</title>
       <link>https://humpylin.github.io/tags/csapp-lab/</link>
       <pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
       
@@ -76,7 +75,7 @@
     </item>
     
     <item>
-      <title>Sap</title>
+      <title>SAP</title>
       <link>https://humpylin.github.io/tags/sap/</link>
       <pubDate>Wed, 15 May 2019 13:39:55 +0800</pubDate>
       

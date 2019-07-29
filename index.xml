@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Humphreylin&#39;s Blog</title>
+    <title>Humphrey Lin&#39;s Blog</title>
     <link>https://humpylin.github.io/</link>
-    <description>Recent content on Humphreylin&#39;s Blog</description>
+    <description>Recent content on Humphrey Lin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <language>en</language>
     <lastBuildDate>Mon, 29 Jul 2019 12:06:14 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -14,55 +13,55 @@
     
     <item>
       <title>CSAPP - Data Lab 记录</title>
-      <link>https://humpylin.github.io/posts/csapp/data-lab/</link>
+      <link>https://humpylin.github.io/post/csapp/data-lab/</link>
       <pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/posts/csapp/data-lab/</guid>
+      <guid>https://humpylin.github.io/post/csapp/data-lab/</guid>
       <description>这里记录的 Data Lab 是 CSAPP 18年11月更新的版本，写的过程中遇到了很多困难，于是许多题目就照搬别人的了。切身感受到，看到别人写过的东西，才会知道自己</description>
     </item>
     
     <item>
       <title>C&#43;&#43; - 面向对象编程</title>
-      <link>https://humpylin.github.io/posts/essentialcpp/chapter5-note/</link>
+      <link>https://humpylin.github.io/post/essentialcpp/chapter5-note/</link>
       <pubDate>Sat, 06 Jul 2019 16:06:30 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/posts/essentialcpp/chapter5-note/</guid>
+      <guid>https://humpylin.github.io/post/essentialcpp/chapter5-note/</guid>
       <description>这是一篇读书笔记，内容主要来自 Essential C++ 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和</description>
     </item>
     
     <item>
       <title>C&#43;&#43; - 基于对象编程</title>
-      <link>https://humpylin.github.io/posts/essentialcpp/chapter4-note/</link>
+      <link>https://humpylin.github.io/post/essentialcpp/chapter4-note/</link>
       <pubDate>Wed, 03 Jul 2019 14:19:07 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/posts/essentialcpp/chapter4-note/</guid>
+      <guid>https://humpylin.github.io/post/essentialcpp/chapter4-note/</guid>
       <description>这是一篇读书笔记，内容主要来自 Essential C++ 的第四章。 如何实现一个 Class 先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而</description>
     </item>
     
     <item>
       <title>SAP VT 项目面试经历</title>
-      <link>https://humpylin.github.io/posts/sap-vt-interview/</link>
+      <link>https://humpylin.github.io/post/sap-vt-interview/</link>
       <pubDate>Wed, 15 May 2019 13:39:55 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/posts/sap-vt-interview/</guid>
+      <guid>https://humpylin.github.io/post/sap-vt-interview/</guid>
       <description>坐标上海，今年（2019）的 VT 项目分三个环节：线上测试、电话面试以及群体面试。 线上笔试 线上测试有 20 道选择题，以及两道编程题。选择题覆盖的范围</description>
     </item>
     
     <item>
       <title>Vim 学习记录 - 基本操作</title>
-      <link>https://humpylin.github.io/posts/vim-learning-basic/</link>
+      <link>https://humpylin.github.io/post/vim-learning-basic/</link>
       <pubDate>Sun, 12 May 2019 09:44:24 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/posts/vim-learning-basic/</guid>
+      <guid>https://humpylin.github.io/post/vim-learning-basic/</guid>
       <description>在这里记录目前自己学习到的 Vim 的基本用法，也方便自己以后忘了后来翻阅。随着对 Vim 的使用，文章应该会变得越来越长，不过也可能因为放弃了所以一直没变</description>
     </item>
     
     <item>
       <title>摩根士丹利宣讲会笔试</title>
-      <link>https://humpylin.github.io/posts/morgan-test/</link>
+      <link>https://humpylin.github.io/post/morgan-test/</link>
       <pubDate>Thu, 14 Mar 2019 21:29:17 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/posts/morgan-test/</guid>
+      <guid>https://humpylin.github.io/post/morgan-test/</guid>
       <description>今天摩根士丹利来学校里进行宣讲，一开始是惯例地讲了许多公司的福利呀等等，对于还不知道可不可能可以去实习的我来说实在没什么价值。不过可以切实感</description>
     </item>
     
