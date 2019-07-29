@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://humpylin.github.io/post/csapp/data-lab/</loc>
+    <lastmod>2019-07-29T12:06:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://humpylin.github.io/post/essentialcpp/chapter5-note/</loc>
     <lastmod>2019-07-06T16:06:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -39,7 +46,7 @@
   
   <url>
     <loc>https://humpylin.github.io/tags/book/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <lastmod>2019-07-29T12:06:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -47,6 +54,20 @@
   <url>
     <loc>https://humpylin.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/csapp/</loc>
+    <lastmod>2019-07-29T12:06:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://humpylin.github.io/tags/csapp-lab/</loc>
+    <lastmod>2019-07-29T12:06:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -73,7 +94,7 @@
   
   <url>
     <loc>https://humpylin.github.io/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <lastmod>2019-07-29T12:06:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -94,14 +115,14 @@
   
   <url>
     <loc>https://humpylin.github.io/categories/notes/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <lastmod>2019-07-29T12:06:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://humpylin.github.io/post/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <lastmod>2019-07-29T12:06:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -115,7 +136,7 @@
   
   <url>
     <loc>https://humpylin.github.io/tags/</loc>
-    <lastmod>2019-07-06T16:06:30+08:00</lastmod>
+    <lastmod>2019-07-29T12:06:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

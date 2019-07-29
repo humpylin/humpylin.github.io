@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Humphrey Lin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 06 Jul 2019 16:06:30 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2019 12:06:14 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Book</title>
       <link>https://humpylin.github.io/tags/book/</link>
-      <pubDate>Sat, 06 Jul 2019 16:06:30 +0800</pubDate>
+      <pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
       
       <guid>https://humpylin.github.io/tags/book/</guid>
       <description></description>
@@ -26,6 +26,24 @@
       <pubDate>Sat, 06 Jul 2019 16:06:30 +0800</pubDate>
       
       <guid>https://humpylin.github.io/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CSAPP</title>
+      <link>https://humpylin.github.io/tags/csapp/</link>
+      <pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/tags/csapp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CSAPP Lab</title>
+      <link>https://humpylin.github.io/tags/csapp-lab/</link>
+      <pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/tags/csapp-lab/</guid>
       <description></description>
     </item>
     

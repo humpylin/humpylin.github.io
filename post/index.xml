@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Humphrey Lin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 06 Jul 2019 16:06:30 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2019 12:06:14 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CSAPP - Data Lab 记录</title>
+      <link>https://humpylin.github.io/post/csapp/data-lab/</link>
+      <pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/post/csapp/data-lab/</guid>
+      <description>这里记录的 Data Lab 是 CSAPP 18年11月更新的版本，写的过程中遇到了很多困难，于是许多题目就照搬别人的了。切身感受到，看到别人写过的东西，才会知道自己</description>
+    </item>
     
     <item>
       <title>C&#43;&#43; - 面向对象编程</title>
