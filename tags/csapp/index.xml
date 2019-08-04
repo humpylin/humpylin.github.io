@@ -17,7 +17,7 @@
       <pubDate>Sun, 04 Aug 2019 14:42:13 +0800</pubDate>
       
       <guid>https://humpylin.github.io/post/csapp/bomblab/</guid>
-      <description>以下为做 Bomb Lab 时的记录，也算是一份详尽的解答吧。实验为 16年1月12日 所更新的版本。 Phase 1 第一题很简单，直接读取内存查看字符串即可。答案为长长的</description>
+      <description>以下为做 Bomb Lab 时的记录，也算是一份详尽的解答吧。实验为 16年1月12日 所更新的版本。另外似乎还存在隐藏谜题，这里就不做了…… Phase 1 第一题很简单，</description>
     </item>
     
     <item>
