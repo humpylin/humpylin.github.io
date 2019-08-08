@@ -6,10 +6,19 @@
     <description>Recent content in CSAPP on HLin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 04 Aug 2019 14:42:13 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 08 Aug 2019 20:17:53 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/tags/csapp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CSAPP - Attack Lab 记录</title>
+      <link>https://humpylin.github.io/post/csapp/attacklab/</link>
+      <pubDate>Thu, 08 Aug 2019 20:17:53 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/post/csapp/attacklab/</guid>
+      <description>Phase 1 先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任</description>
+    </item>
     
     <item>
       <title>CSAPP - Bomb Lab 记录</title>
