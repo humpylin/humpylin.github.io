@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>HLin&#39;s Blog</title>
@@ -6,10 +6,19 @@
     <description>Recent content on HLin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 08 Aug 2019 20:17:53 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Dec 2019 10:45:52 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Daily LeetCode 1</title>
+      <link>https://humpylin.github.io/drafts/daily-leetcode-001/</link>
+      <pubDate>Sun, 08 Dec 2019 10:45:52 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/drafts/daily-leetcode-001/</guid>
+      <description>917 Reverse Only Letters Link: https://leetcode.com/problems/reverse-only-letters/ 这道题不难，只需要翻转字母的字符，那么其实只需要使用一头一尾两个指针依次往里靠寻找为字母的字符，然后遇到后便翻转即可。 C++ 实现： 1</description>
+    </item>
     
     <item>
       <title>CSAPP - Attack Lab 记录</title>

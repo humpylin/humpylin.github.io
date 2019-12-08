@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.60.1 with theme even" />
 
 
 <link rel="canonical" href="https://humpylin.github.io/post/csapp/bomblab/" />
@@ -34,28 +34,25 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.66a860a0.min.css" rel="stylesheet">
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="CSAPP - Bomb Lab 记录" />
 <meta property="og:description" content="以下为做 Bomb Lab 时的记录，也算是一份详尽的解答吧。实验为 16年1月12日 所更新的版本。另外似乎还存在隐藏谜题，这里就不做了…… Phase 1 第一题很简单，" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://humpylin.github.io/post/csapp/bomblab/" /><meta property="article:published_time" content="2019-08-04T14:42:13&#43;08:00"/>
-<meta property="article:modified_time" content="2019-08-04T14:42:13&#43;08:00"/>
-
+<meta property="og:url" content="https://humpylin.github.io/post/csapp/bomblab/" />
+<meta property="article:published_time" content="2019-08-04T14:42:13+08:00" />
+<meta property="article:modified_time" content="2019-08-04T14:42:13+08:00" />
 <meta itemprop="name" content="CSAPP - Bomb Lab 记录">
 <meta itemprop="description" content="以下为做 Bomb Lab 时的记录，也算是一份详尽的解答吧。实验为 16年1月12日 所更新的版本。另外似乎还存在隐藏谜题，这里就不做了…… Phase 1 第一题很简单，">
-
-
 <meta itemprop="datePublished" content="2019-08-04T14:42:13&#43;08:00" />
 <meta itemprop="dateModified" content="2019-08-04T14:42:13&#43;08:00" />
-<meta itemprop="wordCount" content="4191">
+<meta itemprop="wordCount" content="3942">
 
 
 
-<meta itemprop="keywords" content="CSAPP,CSAPP Lab," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="CSAPP,CSAPP Lab," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CSAPP - Bomb Lab 记录"/>
 <meta name="twitter:description" content="以下为做 Bomb Lab 时的记录，也算是一份详尽的解答吧。实验为 16年1月12日 所更新的版本。另外似乎还存在隐藏谜题，这里就不做了…… Phase 1 第一题很简单，"/>
 
@@ -86,6 +83,8 @@
         <li class="mobile-menu-item">Home</li>
       </a><a href="/post/">
         <li class="mobile-menu-item">Archives</li>
+      </a><a href="/drafts/">
+        <li class="mobile-menu-item">Drafts</li>
       </a><a href="/tags/">
         <li class="mobile-menu-item">Tags</li>
       </a><a href="/categories/">
@@ -105,6 +104,8 @@
         <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/drafts/">Drafts</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/tags/">Tags</a>
       </li><li class="menu-item">
@@ -135,61 +136,25 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#phase-1">Phase 1</a></li>
-<li><a href="#phase-2">Phase 2</a></li>
-<li><a href="#phase-3">Phase 3</a></li>
-<li><a href="#phase-4">Phase 4</a></li>
-<li><a href="#phase-5">Phase 5</a></li>
-<li><a href="#phase-6">Phase 6</a></li>
-<li><a href="#感想">感想</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#phase-1">Phase 1</a></li>
+    <li><a href="#phase-2">Phase 2</a></li>
+    <li><a href="#phase-3">Phase 3</a></li>
+    <li><a href="#phase-4">Phase 4</a></li>
+    <li><a href="#phase-5">Phase 5</a></li>
+    <li><a href="#phase-6">Phase 6</a></li>
+    <li><a href="#heading">感想</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<p>以下为做 <a href="http://csapp.cs.cmu.edu/3e/labs.html">Bomb Lab</a> 时的记录，也算是一份详尽的解答吧。实验为 16年1月12日 所更新的版本。另外似乎还存在隐藏谜题，这里就不做了……</p>
-
+      <p>以下为做 <a href="http://csapp.cs.cmu.edu/3e/labs.html">Bomb Lab</a> 时的记录，也算是一份详尽的解答吧。实验为 16年1月12日 所更新的版本。另外似乎还存在隐藏谜题，这里就不做了……</p>
 <h2 id="phase-1">Phase 1</h2>
-
 <p>第一题很简单，直接读取内存查看字符串即可。答案为长长的字符串 “Border relations with Canada have never been better.”</p>
-
 <h2 id="phase-2">Phase 2</h2>
-
 <p>通过 gdb 或是 objdump 可以得到汇编代码，通过 gdb 还可以汇编单步调试，不过我个人觉得，比起动态看变化，还是静态的读着舒服点。删去前后无用的 push 和 pop 操作，得到的内容如下。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_2:
+<pre><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_2:
    0x0000000000400efe &lt;+2&gt;:     sub    $0x28,%rsp
    0x0000000000400f02 &lt;+6&gt;:     mov    %rsp,%rsi
    0x0000000000400f05 &lt;+9&gt;:     callq  0x40145c &lt;read_six_numbers&gt;
@@ -211,34 +176,9 @@
    0x0000000000400f3a &lt;+62&gt;:    jmp    0x400f17 &lt;phase_2+27&gt;
    0x0000000000400f3c &lt;+64&gt;:    add    $0x28,%rsp
    0x0000000000400f42 &lt;+70&gt;:    retq   
-End of assembler dump.</code></pre></td></tr></table>
-</div>
-</div>
-<p>phase_2 分配了若干空间，然后调用了 read_six_numbers，其汇编代码如下。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">Dump of assembler code for function read_six_numbers:
+End of assembler dump.
+</code></pre><p>phase_2 分配了若干空间，然后调用了 read_six_numbers，其汇编代码如下。</p>
+<pre><code class="language-assembly" data-lang="assembly">Dump of assembler code for function read_six_numbers:
    0x000000000040145c &lt;+0&gt;:     sub    $0x18,%rsp
    0x0000000000401460 &lt;+4&gt;:     mov    %rsi,%rdx
    0x0000000000401463 &lt;+7&gt;:     lea    0x4(%rsi),%rcx
@@ -256,13 +196,11 @@ End of assembler dump.</code></pre></td></tr></table>
    0x0000000000401494 &lt;+56&gt;:    callq  0x40143a &lt;explode_bomb&gt;
    0x0000000000401499 &lt;+61&gt;:    add    $0x18,%rsp
    0x000000000040149d &lt;+65&gt;:    retq
-End of assembler dump.</code></pre></td></tr></table>
-</div>
-</div>
-<p>尝试改成 c ，很容易观察到每次对 <code>%rsi</code> 的操作都是四个字节移动的，而且函数名也叫 six number ，再结合 <code>%d</code> 故之前在 phase_2 中分配的应该都是 <code>int</code> 类型的值。</p>
+End of assembler dump.
+</code></pre><p>尝试改成 c ，很容易观察到每次对 <code>%rsi</code> 的操作都是四个字节移动的，而且函数名也叫 six number ，再结合 <code>%d</code> 故之前在 phase_2 中分配的应该都是 <code>int</code> 类型的值。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -281,27 +219,26 @@ End of assembler dump.</code></pre></td></tr></table>
 <td class="lntd">
 <pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">read_six_numbers</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">sp</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="kt">int</span><span class="o">*</span> <span class="n">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">// sub $0x18, %rsp
+    <span class="kt">int</span><span class="o">*</span> <span class="n">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="p">;</span> <span class="c1">// sub $0x18, %rsp
 </span><span class="c1"></span>    <span class="n">a3</span> <span class="o">=</span> <span class="n">sp</span><span class="p">;</span>
     <span class="n">a4</span> <span class="o">=</span> <span class="n">sp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
     <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
     <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp</span> <span class="o">+</span> <span class="mi">4</span><span class="p">;</span>
     <span class="n">a6</span> <span class="o">=</span> <span class="n">sp</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
     <span class="n">a5</span> <span class="o">=</span> <span class="n">sp</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="n">ret</span> <span class="o">=</span> <span class="n">sscanf</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="s">&#34;%d %d %d %d %d %d&#34;</span><span class="p">,</span> <span class="n">a3</span><span class="p">,</span> <span class="n">a4</span><span class="p">,</span> <span class="n">a5</span><span class="p">,</span> <span class="n">a6</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">sscanf</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;</span><span class="s">%d %d %d %d %d %d</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">a3</span><span class="p">,</span> <span class="n">a4</span><span class="p">,</span> <span class="n">a5</span><span class="p">,</span> <span class="n">a6</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
-    <span class="n">explode_bomb</span><span class="p">();</span>
+    <span class="n">explode_bomb</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>通过这个函数可以得到的信息是，字符串前面有大于五个数字，并且只有六个存入了 phase_2 最初分配的空间中。再回去看 phase_2 的代码，易得 <code>sp[0] = 1</code> 。</p>
-
+</div><p>通过这个函数可以得到的信息是，字符串前面有大于五个数字，并且只有六个存入了 phase_2 最初分配的空间中。再回去看 phase_2 的代码，易得 <code>sp[0] = 1</code> 。</p>
 <p>尝试改写剩余部分</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -321,40 +258,20 @@ End of assembler dump.</code></pre></td></tr></table>
 </span><span class="c1"></span>    <span class="n">rbx</span> <span class="o">=</span> <span class="n">sp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
     <span class="n">rbp</span> <span class="o">=</span> <span class="n">sp</span> <span class="o">+</span> <span class="mi">6</span><span class="p">;</span>
     <span class="k">do</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">rbx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-        <span class="n">eax</span> <span class="o">+=</span> <span class="n">eax</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">eax</span> <span class="o">!=</span> <span class="n">rbx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">explode_bomb</span><span class="p">();</span>
-        <span class="n">rbx</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> 
-    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">rbp</span> <span class="o">!=</span> <span class="n">rbx</span><span class="p">);</span>
+        <span class="n">eax</span> <span class="o">=</span> <span class="n">rbx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="p">;</span>
+        <span class="n">eax</span> <span class="o">+</span><span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">eax</span> <span class="o">!</span><span class="o">=</span> <span class="n">rbx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span>
+            <span class="n">explode_bomb</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+        <span class="n">rbx</span> <span class="o">+</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span> 
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">rbp</span> <span class="o">!</span><span class="o">=</span> <span class="n">rbx</span><span class="p">)</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">rax</span><span class="p">;</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>很容易看出来，phase_2 就是 1 开头的不断翻倍的六个数字，也就是 1 2 4 8 16 32 。</p>
-
+</div><p>很容易看出来，phase_2 就是 1 开头的不断翻倍的六个数字，也就是 1 2 4 8 16 32 。</p>
 <h2 id="phase-3">Phase 3</h2>
-
 <p>为了方便阅读，这里将汇编代码分成若干部分。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_3:
+<pre><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_3:
    0x0000000000400f43 &lt;+0&gt;:     sub    $0x18,%rsp
    0x0000000000400f47 &lt;+4&gt;:     lea    0xc(%rsp),%rcx
    0x0000000000400f4c &lt;+9&gt;:     lea    0x8(%rsp),%rdx
@@ -367,39 +284,9 @@ End of assembler dump.</code></pre></td></tr></table>
    0x0000000000400f6a &lt;+39&gt;:    cmpl   $0x7,0x8(%rsp)
    0x0000000000400f6f &lt;+44&gt;:    ja     0x400fad &lt;phase_3+106&gt;
    0x0000000000400f71 &lt;+46&gt;:    mov    0x8(%rsp),%eax
-   0x0000000000400f75 &lt;+50&gt;:    jmpq   *0x402470(,%rax,8)</code></pre></td></tr></table>
-</div>
-</div>
-<p>先看前几行，一开始分配了若干空间，之后使用 <code>sscanf</code> 读取了两个整数，要求整数数目大于 1 ，之后要求第一个读取的整数的无符号形式要小于等于 7 否则会跳转到 <code>explode_bomb</code> 函数，随后根据读取的第一个数字来进行跳转。也就是说，字符串中的第一个数字必须要在 0 ~ 7 之间，负数也不行，因为负数转换成无符号整数后会远远大于 7 。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">   0x0000000000400f7c &lt;+57&gt;:    mov    $0xcf,%eax
+   0x0000000000400f75 &lt;+50&gt;:    jmpq   *0x402470(,%rax,8)
+</code></pre><p>先看前几行，一开始分配了若干空间，之后使用 <code>sscanf</code> 读取了两个整数，要求整数数目大于 1 ，之后要求第一个读取的整数的无符号形式要小于等于 7 否则会跳转到 <code>explode_bomb</code> 函数，随后根据读取的第一个数字来进行跳转。也就是说，字符串中的第一个数字必须要在 0 ~ 7 之间，负数也不行，因为负数转换成无符号整数后会远远大于 7 。</p>
+<pre><code class="language-assembly" data-lang="assembly">   0x0000000000400f7c &lt;+57&gt;:    mov    $0xcf,%eax
    0x0000000000400f81 &lt;+62&gt;:    jmp    0x400fbe &lt;phase_3+123&gt;
    0x0000000000400f83 &lt;+64&gt;:    mov    $0x2c3,%eax
    0x0000000000400f88 &lt;+69&gt;:    jmp    0x400fbe &lt;phase_3+123&gt;
@@ -422,45 +309,12 @@ End of assembler dump.</code></pre></td></tr></table>
    0x0000000000400fc4 &lt;+129&gt;:   callq  0x40143a &lt;explode_bomb&gt;
    0x0000000000400fc9 &lt;+134&gt;:   add    $0x18,%rsp
    0x0000000000400fcd &lt;+138&gt;:   retq
-End of assembler dump.</code></pre></td></tr></table>
-</div>
-</div>
-<p>之后便是一大堆 <code>mov</code> 和 <code>jmp</code> 指令，故可以猜测这其实是一个 <code>swtich-case</code> 语句，每个 case 都给 <code>%eax</code> 进行了赋值，然后 break 。接着，会将 <code>%eax</code> 和第二个读取的数字比较，若相等则拆弹成功。</p>
-
+End of assembler dump.
+</code></pre><p>之后便是一大堆 <code>mov</code> 和 <code>jmp</code> 指令，故可以猜测这其实是一个 <code>swtich-case</code> 语句，每个 case 都给 <code>%eax</code> 进行了赋值，然后 break 。接着，会将 <code>%eax</code> 和第二个读取的数字比较，若相等则拆弹成功。</p>
 <p>那么，字符串只需要有两个数字，第一个为 0 ~ 7 ，第二个根据第一个数字决定即可。我选定了 7 ，之后用 gdb 调试发现给 <code>%eax</code> 赋值地是 327 ，故第二个数字为 327 即可。</p>
-
 <h2 id="phase-4">Phase 4</h2>
-
 <p>Phase 4 的汇编代码如下</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_4:
+<pre><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_4:
    0x000000000040100c &lt;+0&gt;:     sub    $0x18,%rsp
    0x0000000000401010 &lt;+4&gt;:     lea    0xc(%rsp),%rcx
    0x0000000000401015 &lt;+9&gt;:     lea    0x8(%rsp),%rdx
@@ -483,41 +337,10 @@ End of assembler dump.</code></pre></td></tr></table>
    0x0000000000401058 &lt;+76&gt;:    callq  0x40143a &lt;explode_bomb&gt;
    0x000000000040105d &lt;+81&gt;:    add    $0x18,%rsp
    0x0000000000401061 &lt;+85&gt;:    retq
-End of assembler dump.</code></pre></td></tr></table>
-</div>
-</div>
-<p>phase 4 先调用 <code>sscanf</code> 读入两个整数，并且这一次要求只能有两个整数。要求第一个整数的无符号形式小于等于 14 ，并将其作为第一个参数传给 func4 ，随后需要测试返回结果，要求返回结果为 0 ，然后比较之前读入的第二个整数，要求第二个整数为 0 。读完 phase 4 的代码，可以知道第二个整数的值为 0 ，第一个整数需要使 func4 的返回值为 0 。</p>
-
+End of assembler dump.
+</code></pre><p>phase 4 先调用 <code>sscanf</code> 读入两个整数，并且这一次要求只能有两个整数。要求第一个整数的无符号形式小于等于 14 ，并将其作为第一个参数传给 func4 ，随后需要测试返回结果，要求返回结果为 0 ，然后比较之前读入的第二个整数，要求第二个整数为 0 。读完 phase 4 的代码，可以知道第二个整数的值为 0 ，第一个整数需要使 func4 的返回值为 0 。</p>
 <p>那接着阅读 func4 部分的代码：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">Dump of assembler code for function func4:
+<pre><code class="language-assembly" data-lang="assembly">Dump of assembler code for function func4:
    0x0000000000400fce &lt;+0&gt;:     sub    $0x8,%rsp
    0x0000000000400fd2 &lt;+4&gt;:     mov    %edx,%eax
    0x0000000000400fd4 &lt;+6&gt;:     sub    %esi,%eax
@@ -540,13 +363,11 @@ End of assembler dump.</code></pre></td></tr></table>
    0x0000000000401003 &lt;+53&gt;:    lea    0x1(%rax,%rax,1),%eax
    0x0000000000401007 &lt;+57&gt;:    add    $0x8,%rsp
    0x000000000040100b &lt;+61&gt;:    retq
-End of assembler dump.</code></pre></td></tr></table>
-</div>
-</div>
-<p>这一部分的代码有大量的 <code>mov</code> 操作，很容易看得眼花缭乱，不妨写成伪代码，其实不需要全部都完全理解，当写出来部分后就已经可以得出正确答案了。</p>
+End of assembler dump.
+</code></pre><p>这一部分的代码有大量的 <code>mov</code> 操作，很容易看得眼花缭乱，不妨写成伪代码，其实不需要全部都完全理解，当写出来部分后就已经可以得出正确答案了。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -574,82 +395,35 @@ End of assembler dump.</code></pre></td></tr></table>
 <td class="lntd">
 <pre class="chroma"><code class="language-c" data-lang="c"><span class="p">{</span>
     <span class="n">eax</span> <span class="o">=</span> <span class="n">edx</span> <span class="o">-</span> <span class="n">esi</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="n">eas</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span><span class="p">;</span> <span class="c1">// logical shift
-</span><span class="c1"></span>    <span class="n">eax</span> <span class="o">+=</span> <span class="n">ecx</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// signed shift
+    <span class="n">ecx</span> <span class="o">=</span> <span class="n">eas</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span class="mi">31</span><span class="p">;</span> <span class="c1">// logical shift
+</span><span class="c1"></span>    <span class="n">eax</span> <span class="o">+</span><span class="o">=</span> <span class="n">ecx</span><span class="p">;</span>
+    <span class="n">eax</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// signed shift
 </span><span class="c1"></span>    <span class="n">ecx</span> <span class="o">=</span> <span class="n">rsi</span> <span class="o">+</span> <span class="n">rax</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">edi</span> <span class="o">&gt;=</span> <span class="n">ecx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">edi</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">ecx</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">eax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">ecx</span> <span class="o">&gt;=</span> <span class="n">edi</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ecx</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">edi</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">eax</span><span class="p">;</span>
         <span class="k">else</span> <span class="p">{</span>
-            <span class="n">rcx</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="n">func4</span><span class="p">(</span><span class="n">rdi</span><span class="p">,</span> <span class="n">rsi</span><span class="p">,</span> <span class="n">rdx</span><span class="p">);</span>
+            <span class="n">rcx</span> <span class="o">+</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">eax</span> <span class="o">=</span> <span class="n">func4</span><span class="p">(</span><span class="n">rdi</span><span class="p">,</span> <span class="n">rsi</span><span class="p">,</span> <span class="n">rdx</span><span class="p">)</span><span class="p">;</span>
             <span class="n">eax</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
             <span class="k">return</span> <span class="n">eax</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="p">{</span>
         <span class="n">edx</span> <span class="o">=</span> <span class="n">rcx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">func4</span><span class="p">(</span><span class="n">edi</span><span class="p">,</span> <span class="n">esi</span><span class="p">,</span> <span class="n">edx</span><span class="p">);</span>
-        <span class="n">eax</span> <span class="o">+=</span> <span class="n">eax</span><span class="p">;</span>
+        <span class="n">eax</span> <span class="o">=</span> <span class="n">func4</span><span class="p">(</span><span class="n">edi</span><span class="p">,</span> <span class="n">esi</span><span class="p">,</span> <span class="n">edx</span><span class="p">)</span><span class="p">;</span>
+        <span class="n">eax</span> <span class="o">+</span><span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
         <span class="k">return</span> <span class="n">eax</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>要使 func4 返回 0 ，而代码中正好有使 eax = 0 且即可返回的操作，我们要尽力使这一步实现。而实现的条件只需要 eax == edi 即可。从 phase 4 中可以看出，最初传入的参数为读入的第一个数字、0 和 14，由于后两个参数是固定的，计算可得最开始 ecx 的值会为 7 ，故只要使 edi 也就是输入的第一个数字为 7 即可。</p>
-
+</div><p>要使 func4 返回 0 ，而代码中正好有使 eax = 0 且即可返回的操作，我们要尽力使这一步实现。而实现的条件只需要 eax == edi 即可。从 phase 4 中可以看出，最初传入的参数为读入的第一个数字、0 和 14，由于后两个参数是固定的，计算可得最开始 ecx 的值会为 7 ，故只要使 edi 也就是输入的第一个数字为 7 即可。</p>
 <p>故 phase 4 为两个数字，7 和 0 。</p>
-
 <h2 id="phase-5">Phase 5</h2>
-
 <p>phase 5 的汇编代码如下。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_5:
+<pre><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_5:
   0x0000000000401062 &lt;+0&gt;:    push  %rbx
   0x0000000000401063 &lt;+1&gt;:    sub    $0x20,%rsp
   0x0000000000401067 &lt;+5&gt;:    mov    %rdi,%rbx
@@ -688,71 +462,21 @@ End of assembler dump.</code></pre></td></tr></table>
   0x00000000004010ee &lt;+140&gt;:  add    $0x20,%rsp
   0x00000000004010f2 &lt;+144&gt;:  pop    %rbx
   0x00000000004010f3 &lt;+145&gt;:  retq
-End of assembler dump.</code></pre></td></tr></table>
-</div>
-</div>
-<p>这里有一个很特别的地方是 %fs:0x28 似乎是一个随机数，大概是用来放置栈溢出。然后开始来分析代码。一开始调用了 string_length 函数，并且要求字符串长度为 6 ，也就是输入的字符串应该是六个字符。随后进入循环，修改了各个字符串，又调用了 strings_not_equal 来比对各个字符串。最后就是检查是否是否存在溢出等问题，和题目没什么关系了。</p>
-
+End of assembler dump.
+</code></pre><p>这里有一个很特别的地方是 %fs:0x28 似乎是一个随机数，大概是用来放置栈溢出。然后开始来分析代码。一开始调用了 string_length 函数，并且要求字符串长度为 6 ，也就是输入的字符串应该是六个字符。随后进入循环，修改了各个字符串，又调用了 strings_not_equal 来比对各个字符串。最后就是检查是否是否存在溢出等问题，和题目没什么关系了。</p>
 <p>所以需要做的事情就是，让输入的字符串被修改后，可以和给定的字符串一样。读取内存，可以发现，给定的字符串为 flyers 。观察 phase_5 修改读取字符串的方法，可以发现，函数会根据字符的 ascii 的后四位来决定访问内存的地址，从内存中读取字符来替换。通过 gdb 的相关指令来读取内存附近的 16 个字符，可得字符如下。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">0x4024b0 &lt;array.3449&gt;:  109 &#39;m&#39; 97 &#39;a&#39;  100 &#39;d&#39; 117 &#39;u&#39; 105 &#39;i&#39; 101 &#39;e&#39; 114 &#39;r&#39; 115 &#39;s&#39;
-0x4024b8 &lt;array.3449+8&gt;:        110 &#39;n&#39; 102 &#39;f&#39; 111 &#39;o&#39; 116 &#39;t&#39; 118 &#39;v&#39; 98 &#39;b&#39;  121 &#39;y&#39; 108 &#39;l&#39;</code></pre></td></tr></table>
-</div>
-</div>
-<p>此时，只要选取好 flyers 对应的字符的位置，并进行转换（位置加上 ascii(&lsquo;a&rsquo;)），就可以得到输入的字符串了。第五个字符串为 ionefg 。</p>
-
+<pre><code class="language-assembly" data-lang="assembly">0x4024b0 &lt;array.3449&gt;:  109 'm' 97 'a'  100 'd' 117 'u' 105 'i' 101 'e' 114 'r' 115 's'
+0x4024b8 &lt;array.3449+8&gt;:        110 'n' 102 'f' 111 'o' 116 't' 118 'v' 98 'b'  121 'y' 108 'l'
+</code></pre><p>此时，只要选取好 flyers 对应的字符的位置，并进行转换（位置加上 ascii(&lsquo;a&rsquo;)），就可以得到输入的字符串了。第五个字符串为 ionefg 。</p>
 <h2 id="phase-6">Phase 6</h2>
-
 <p>最后一题，也是最难的一题，里面有大量的循环和条件分支，以及大量的寄存器，这里分段慢慢分析。先删去使用 push 压栈的部分，来看第一部分。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_6:
+<pre><code class="language-assembly" data-lang="assembly">Dump of assembler code for function phase_6:
    0x00000000004010fc &lt;+8&gt;:     sub    $0x50,%rsp
    0x0000000000401100 &lt;+12&gt;:    mov    %rsp,%r13
    0x0000000000401103 &lt;+15&gt;:    mov    %rsp,%rsi
-   0x0000000000401106 &lt;+18&gt;:    callq  0x40145c &lt;read_six_numbers&gt;</code></pre></td></tr></table>
-</div>
-</div>
-<p>使用 <code>read_six_numbers</code> 来读取六个数字，从这里可以知道本次的字符串就是六个数字，存放数字的数组位于 <code>%r13</code> 中。（其实也可以是若干变量，但是出于方便，这里把分配的局部变量视作一个大数组）</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">   0x000000000040110b &lt;+23&gt;:    mov    %rsp,%r14
+   0x0000000000401106 &lt;+18&gt;:    callq  0x40145c &lt;read_six_numbers&gt;
+</code></pre><p>使用 <code>read_six_numbers</code> 来读取六个数字，从这里可以知道本次的字符串就是六个数字，存放数字的数组位于 <code>%r13</code> 中。（其实也可以是若干变量，但是出于方便，这里把分配的局部变量视作一个大数组）</p>
+<pre><code class="language-assembly" data-lang="assembly">   0x000000000040110b &lt;+23&gt;:    mov    %rsp,%r14
    0x000000000040110e &lt;+26&gt;:    mov    $0x0,%r12d
    0x0000000000401114 &lt;+32&gt;:    mov    %r13,%rbp
    0x0000000000401117 &lt;+35&gt;:    mov    0x0(%r13),%eax
@@ -773,26 +497,10 @@ End of assembler dump.</code></pre></td></tr></table>
    0x0000000000401148 &lt;+84&gt;:    cmp    $0x5,%ebx
    0x000000000040114b &lt;+87&gt;:    jle    0x401135 &lt;phase_6+65&gt;
    0x000000000040114d &lt;+89&gt;:    add    $0x4,%r13
-   0x0000000000401151 &lt;+93&gt;:    jmp    0x401114 &lt;phase_6+32&gt;</code></pre></td></tr></table>
-</div>
-</div>
-<p>第二部分是一个很大的循环。从 23 到 47 可以看出，数组中每一个数字都必须要小于等于 6 ；52 ~ 60 通过判断 <code>%r12d</code> 的取值来限制只访问数组的前六个元素；65 ~ 87 又是一组循环，判断当前数字是否和后面的数字相同，也就是要求数组中的各个元素完全不同；89 ~ 93 则类似 for 循环中最后的 <code>i++</code> 。</p>
-
+   0x0000000000401151 &lt;+93&gt;:    jmp    0x401114 &lt;phase_6+32&gt;
+</code></pre><p>第二部分是一个很大的循环。从 23 到 47 可以看出，数组中每一个数字都必须要小于等于 6 ；52 ~ 60 通过判断 <code>%r12d</code> 的取值来限制只访问数组的前六个元素；65 ~ 87 又是一组循环，判断当前数字是否和后面的数字相同，也就是要求数组中的各个元素完全不同；89 ~ 93 则类似 for 循环中最后的 <code>i++</code> 。</p>
 <p>从第二部分可以得出的信息是：每个数字都要小于等于 6 ，且六个数字各不相同。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">   0x0000000000401153 &lt;+95&gt;:    lea    0x18(%rsp),%rsi
+<pre><code class="language-assembly" data-lang="assembly">   0x0000000000401153 &lt;+95&gt;:    lea    0x18(%rsp),%rsi
    0x0000000000401158 &lt;+100&gt;:   mov    %r14,%rax
    0x000000000040115b &lt;+103&gt;:   mov    $0x7,%ecx
    0x0000000000401160 &lt;+108&gt;:   mov    %ecx,%edx
@@ -800,33 +508,9 @@ End of assembler dump.</code></pre></td></tr></table>
    0x0000000000401164 &lt;+112&gt;:   mov    %edx,(%rax)
    0x0000000000401166 &lt;+114&gt;:   add    $0x4,%rax
    0x000000000040116a &lt;+118&gt;:   cmp    %rsi,%rax
-   0x000000000040116d &lt;+121&gt;:   jne    0x401160 &lt;phase_6+108&gt;</code></pre></td></tr></table>
-</div>
-</div>
-<p>第三个部分是一个小循环，把数组中用 7 减去数组中的各个，并将结果存入数组。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">   0x000000000040116f &lt;+123&gt;:   mov    $0x0,%esi
+   0x000000000040116d &lt;+121&gt;:   jne    0x401160 &lt;phase_6+108&gt;
+</code></pre><p>第三个部分是一个小循环，把数组中用 7 减去数组中的各个，并将结果存入数组。</p>
+<pre><code class="language-assembly" data-lang="assembly">   0x000000000040116f &lt;+123&gt;:   mov    $0x0,%esi
    0x0000000000401174 &lt;+128&gt;:   jmp    0x401197 &lt;phase_6+163&gt;
    0x0000000000401176 &lt;+130&gt;:   mov    0x8(%rdx),%rdx
    0x000000000040117a &lt;+134&gt;:   add    $0x1,%eax
@@ -843,33 +527,12 @@ End of assembler dump.</code></pre></td></tr></table>
    0x000000000040119d &lt;+169&gt;:   jle    0x401183 &lt;phase_6+143&gt;
    0x000000000040119f &lt;+171&gt;:   mov    $0x1,%eax
    0x00000000004011a4 &lt;+176&gt;:   mov    $0x6032d0,%edx
-   0x00000000004011a9 &lt;+181&gt;:   jmp    0x401176 &lt;phase_6+130&gt;</code></pre></td></tr></table>
-</div>
-</div>
-<p>第四个部分又是一个大循环，里面又夹杂着若干循环，而且其中一个条件判断还和输入数字的取值有关，看得很容易让人发懵。循环开始会判断数组第一个数字是否小于等于 1 ，不妨先假设小于等于。</p>
-
+   0x00000000004011a9 &lt;+181&gt;:   jmp    0x401176 &lt;phase_6+130&gt;
+</code></pre><p>第四个部分又是一个大循环，里面又夹杂着若干循环，而且其中一个条件判断还和输入数字的取值有关，看得很容易让人发懵。循环开始会判断数组第一个数字是否小于等于 1 ，不妨先假设小于等于。</p>
 <p>若第一个数字小于等于 1 ，那么就会进入 143 ~ 169 这一个循环，直到遇到数组中大于 1 的数字。这个循环会将 <code>0x6032d0</code> 这个地址放在数组六个数的后面位置（根据目前数字的位置而定），以 64 位的形式存储。当遍历到数组大于 1 的数字，或者已经遍历完数组了，就会跳出循环。</p>
-
 <p>若第一个数字大于 1 ，则将改变 <code>%rdx</code> 的值，在之前的分析中，放入 <code>%rdx</code> 的值为 <code>0x6032d0</code> ，而此处则是根据目前读取数组的数字，来不断重复 <code>mov 0x8(%rdx), %rdx</code> 的操作，显然 <code>0x8(%rdx)</code> 也是一个地址，但是在这里不是通过加减法取地址而是用 mov （不断赋值找下一个，有没有觉得很熟悉？），可见其实 <code>0x6032d0</code> 应该是一个 <strong>链表</strong> 。取完链表的地址后会进入之前分析的 143 ~ 169 部分，把链表地址放在数组后面。</p>
-
 <p>那么，现在这部分的操作就很明朗了，通过之前读取到的数字，来给链表 <strong>排序</strong> 。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">   0x00000000004011ab &lt;+183&gt;:   mov    0x20(%rsp),%rbx
+<pre><code class="language-assembly" data-lang="assembly">   0x00000000004011ab &lt;+183&gt;:   mov    0x20(%rsp),%rbx
    0x00000000004011b0 &lt;+188&gt;:   lea    0x28(%rsp),%rax
    0x00000000004011b5 &lt;+193&gt;:   lea    0x50(%rsp),%rsi
    0x00000000004011ba &lt;+198&gt;:   mov    %rbx,%rcx
@@ -880,27 +543,9 @@ End of assembler dump.</code></pre></td></tr></table>
    0x00000000004011cb &lt;+215&gt;:   je     0x4011d2 &lt;phase_6+222&gt;
    0x00000000004011cd &lt;+217&gt;:   mov    %rdx,%rcx
    0x00000000004011d0 &lt;+220&gt;:   jmp    0x4011bd &lt;phase_6+201&gt;
-   0x00000000004011d2 &lt;+222&gt;:   movq   $0x0,0x8(%rdx)</code></pre></td></tr></table>
-</div>
-</div>
-<p>意识到链表的存在以及排序后，第五部分就比较明朗了，之前第四部分是改变了一下顺序，还没有改变指向下个项的指针，而第五部分，就是改变末尾的指针，并让最后一个元素指向 NULL 。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-assembly" data-lang="assembly">   0x00000000004011da &lt;+230&gt;:   mov    $0x5,%ebp
+   0x00000000004011d2 &lt;+222&gt;:   movq   $0x0,0x8(%rdx)
+</code></pre><p>意识到链表的存在以及排序后，第五部分就比较明朗了，之前第四部分是改变了一下顺序，还没有改变指向下个项的指针，而第五部分，就是改变末尾的指针，并让最后一个元素指向 NULL 。</p>
+<pre><code class="language-assembly" data-lang="assembly">   0x00000000004011da &lt;+230&gt;:   mov    $0x5,%ebp
    0x00000000004011df &lt;+235&gt;:   mov    0x8(%rbx),%rax
    0x00000000004011e3 &lt;+239&gt;:   mov    (%rax),%eax
    0x00000000004011e5 &lt;+241&gt;:   cmp    %eax,(%rbx)
@@ -911,24 +556,12 @@ End of assembler dump.</code></pre></td></tr></table>
    0x00000000004011f5 &lt;+257&gt;:   jne    0x4011df &lt;phase_6+235&gt;
    0x00000000004011f7 &lt;+259&gt;:   add    $0x50,%rsp
    0x0000000000401203 &lt;+271&gt;:   retq
-End of assembler dump.</code></pre></td></tr></table>
-</div>
-</div>
-<p>第六部分甚至不需要细看代码，很理所应当应该就是比较大小了，从 230 ~ 243 可以明白应该是降序。那么不妨读取一下链表来直接输入试验一下，链表的值如下（读取链表真的很麻烦……）。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">332 -&gt; 168 -&gt; 924 -&gt; 691 -&gt; 477 -&gt; 443</pre></td></tr></table>
-</div>
-</div>
-<p>要变为降序，数组应该是 3 4 5 6 1 2 ，但是注意到中间有一段用 7 减去数字的环节，所以应当是 4 3 2 1 6 5 。</p>
-
-<h2 id="感想">感想</h2>
-
+End of assembler dump.
+</code></pre><p>第六部分甚至不需要细看代码，很理所应当应该就是比较大小了，从 230 ~ 243 可以明白应该是降序。那么不妨读取一下链表来直接输入试验一下，链表的值如下（读取链表真的很麻烦……）。</p>
+<pre><code>332 -&gt; 168 -&gt; 924 -&gt; 691 -&gt; 477 -&gt; 443
+</code></pre><p>要变为降序，数组应该是 3 4 5 6 1 2 ，但是注意到中间有一段用 7 减去数字的环节，所以应当是 4 3 2 1 6 5 。</p>
+<h2 id="heading">感想</h2>
 <p>相比 Data Lab 简单很多，不需要特别思考，老老实实读下去就可以了，唯一的困难可能是看见汇编代码可能会害怕，以及对各个寄存器的作用不熟悉（尤其是传参的时候），不过这些困难耐心多读几遍就可以解决了。这也是我自己第一次认真读 x86 指令，从整个记录中也可以看出来自己从要改写成伪代码到直接读的变化。</p>
-
 <p>不过做完后，似乎并没有什么收获…… 只是发觉 C 语言真是个好东西……</p>
 
     </div>
@@ -982,7 +615,7 @@ End of assembler dump.</code></pre></td></tr></table>
     })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  
+
   
 
   
