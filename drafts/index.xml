@@ -6,10 +6,19 @@
     <description>Recent content in Drafts on HLin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 08 Dec 2019 10:45:52 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Dec 2019 19:48:02 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/drafts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Git Usage</title>
+      <link>https://humpylin.github.io/drafts/git-usage/</link>
+      <pubDate>Sun, 08 Dec 2019 19:48:02 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/drafts/git-usage/</guid>
+      <description>Unstage 重置 stage 的状态但是保存修改 git reset HEAD &amp;lt;file&amp;gt; 把文件恢复成修改前的状态 git checkout -- &amp;lt;file&amp;gt; 把文件从 repo 和 disk 上删除 git rm &amp;lt;file&amp;gt; git rm -r &amp;lt;directory&amp;gt; 把文件从 repo 中移除，但保留在 disk 上 git rm &amp;lt;file&amp;gt; --cache</description>
+    </item>
     
     <item>
       <title>Daily LeetCode 1</title>

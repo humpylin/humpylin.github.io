@@ -48,7 +48,7 @@
 <meta itemprop="description" content="917 Reverse Only Letters Link: https://leetcode.com/problems/reverse-only-letters/ 这道题不难，只需要翻转字母的字符，那么其实只需要使用一头一尾两个指针依次往里靠寻找为字母的字符，然后遇到后便翻转即可。 C&#43;&#43; 实现： 1">
 <meta itemprop="datePublished" content="2019-12-08T10:45:52&#43;08:00" />
 <meta itemprop="dateModified" content="2019-12-08T10:45:52&#43;08:00" />
-<meta itemprop="wordCount" content="143">
+<meta itemprop="wordCount" content="629">
 
 
 
@@ -172,7 +172,87 @@
 <span class="p">}</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
+</div><h2 id="75-sort-colors">75 Sort Colors</h2>
+<p>Link: <a href="https://leetcode.com/problems/sort-colors/">https://leetcode.com/problems/sort-colors/</a></p>
+<blockquote>
+<ul>
+<li>A rather straight forward solution is a two-pass algorithm using counting sort.
+First, iterate the array counting number of 0's, 1's, and 2's, then overwrite array with total number of 0's, then 1's and followed by 2's.</li>
+<li>Could you come up with a one-pass algorithm using only constant space?</li>
+</ul>
+</blockquote>
+<p>按照题目提示，可以遍历两次来求解，不过存在着只遍历一次的解法。</p>
+<p>既然计数要遍历两次，那么不妨改成用指针，使用三种颜色的指针，指向三种颜色的最尾（一开始都没有，所以都指向 0 ），然后遍历时根据颜色来移动指针就好了，不难不过蛮有意思的。</p>
+<p>此外，这里 <code>r</code> 其实是多余的，不过在这里顺手用了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">sortColors</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">size</span><span class="p">;</span>
+        
+        <span class="n">r</span> <span class="o">=</span> <span class="n">g</span> <span class="o">=</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+        
+        <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+                    <span class="n">nums</span><span class="p">[</span><span class="n">b</span><span class="o">+</span><span class="o">+</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+                    <span class="n">nums</span><span class="p">[</span><span class="n">g</span><span class="o">+</span><span class="o">+</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="n">nums</span><span class="p">[</span><span class="n">r</span><span class="o">+</span><span class="o">+</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+                    <span class="n">nums</span><span class="p">[</span><span class="n">b</span><span class="o">+</span><span class="o">+</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+                    <span class="n">nums</span><span class="p">[</span><span class="n">g</span><span class="o">+</span><span class="o">+</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+                    <span class="n">nums</span><span class="p">[</span><span class="n">b</span><span class="o">+</span><span class="o">+</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">i</span><span class="o">+</span><span class="o">+</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="p">;</span>
+</code></pre></td></tr></table>
 </div>
+</div><h2 id="143-reorder-list">143 Reorder List</h2>
+<p>Link: <a href="https://leetcode.com/problems/reorder-list/">https://leetcode.com/problems/reorder-list/</a></p>
+<p>Given a singly linked list <em>L</em>: <em>L</em>0→<em>L</em>1→…→<em>Ln</em>-1→<em>L</em>n,
+reorder it to: <em>L</em>0→<em>Ln</em>→<em>L</em>1→<em>Ln</em>-1→<em>L</em>2→<em>Ln</em>-2→…</p>
+<p>You may <strong>not</strong> modify the values in the list's nodes, only nodes itself may be changed.</p>
+<p>看着非常难，链表只有指向下一个的指针，也就是说不能回头，那么怎么样才能做到像 <em>Ln</em> &hellip; <em>L1</em> 这样子遍历呢？这里需要注意到，需要遍历的只有后面的一半，而且后面的一半只需要反向遍历。反向遍历，那么只需要把链表翻转即可。所以，需要做的就只是把后面的部分给翻转了，然后便很简单了。</p>
+
   </div>
 </article>
         </div>
