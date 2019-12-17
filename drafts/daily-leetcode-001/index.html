@@ -48,7 +48,7 @@
 <meta itemprop="description" content="917 Reverse Only Letters Link: https://leetcode.com/problems/reverse-only-letters/ 这道题不难，只需要翻转字母的字符，那么其实只需要使用一头一尾两个指针依次往里靠寻找为字母的字符，然后遇到后便翻转即可。 C&#43;&#43; 实现： 1">
 <meta itemprop="datePublished" content="2019-12-08T10:45:52&#43;08:00" />
 <meta itemprop="dateModified" content="2019-12-08T10:45:52&#43;08:00" />
-<meta itemprop="wordCount" content="629">
+<meta itemprop="wordCount" content="680">
 
 
 
@@ -248,10 +248,19 @@ First, iterate the array counting number of 0's, 1's, and 2's, then overwrite ar
 </div>
 </div><h2 id="143-reorder-list">143 Reorder List</h2>
 <p>Link: <a href="https://leetcode.com/problems/reorder-list/">https://leetcode.com/problems/reorder-list/</a></p>
+<blockquote>
 <p>Given a singly linked list <em>L</em>: <em>L</em>0→<em>L</em>1→…→<em>Ln</em>-1→<em>L</em>n,
 reorder it to: <em>L</em>0→<em>Ln</em>→<em>L</em>1→<em>Ln</em>-1→<em>L</em>2→<em>Ln</em>-2→…</p>
 <p>You may <strong>not</strong> modify the values in the list's nodes, only nodes itself may be changed.</p>
+</blockquote>
 <p>看着非常难，链表只有指向下一个的指针，也就是说不能回头，那么怎么样才能做到像 <em>Ln</em> &hellip; <em>L1</em> 这样子遍历呢？这里需要注意到，需要遍历的只有后面的一半，而且后面的一半只需要反向遍历。反向遍历，那么只需要把链表翻转即可。所以，需要做的就只是把后面的部分给翻转了，然后便很简单了。</p>
+<h2 id="70-climbing-stairs">70 Climbing Stairs</h2>
+<p>Link: <a href="https://leetcode.com/problems/climbing-stairs/">https://leetcode.com/problems/climbing-stairs/</a></p>
+<blockquote>
+<p>You are climbing a stair case. It takes <em>n</em> steps to reach to the top.</p>
+<p>Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?</p>
+</blockquote>
+<p>动态规划，非常典型。</p>
 
   </div>
 </article>
