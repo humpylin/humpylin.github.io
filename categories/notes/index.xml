@@ -13,55 +13,55 @@
     
     <item>
       <title>CSAPP - Attack Lab 记录</title>
-      <link>https://humpylin.github.io/post/csapp/attacklab/</link>
+      <link>https://humpylin.github.io/posts/csapp/attacklab/</link>
       <pubDate>Thu, 08 Aug 2019 20:17:53 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/post/csapp/attacklab/</guid>
+      <guid>https://humpylin.github.io/posts/csapp/attacklab/</guid>
       <description>Phase 1 先根据提示，读一下 getbuf 的源代码，可以发现 BUFFER_SIZE 的大小为 0x28 ，也就是 40 个字节。继续读汇编代码可以发现，touch1 的地址为 0x04017c0 。于是只要先输入 40 个任</description>
     </item>
     
     <item>
       <title>CSAPP - Bomb Lab 记录</title>
-      <link>https://humpylin.github.io/post/csapp/bomblab/</link>
+      <link>https://humpylin.github.io/posts/csapp/bomblab/</link>
       <pubDate>Sun, 04 Aug 2019 14:42:13 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/post/csapp/bomblab/</guid>
+      <guid>https://humpylin.github.io/posts/csapp/bomblab/</guid>
       <description>以下为做 Bomb Lab 时的记录，也算是一份详尽的解答吧。实验为 16年1月12日 所更新的版本。另外似乎还存在隐藏谜题，这里就不做了…… Phase 1 第一题很简单，</description>
     </item>
     
     <item>
       <title>CSAPP - Data Lab 记录</title>
-      <link>https://humpylin.github.io/post/csapp/datalab/</link>
+      <link>https://humpylin.github.io/posts/csapp/datalab/</link>
       <pubDate>Mon, 29 Jul 2019 12:06:14 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/post/csapp/datalab/</guid>
+      <guid>https://humpylin.github.io/posts/csapp/datalab/</guid>
       <description>这里记录的 Data Lab 是 CSAPP 18年11月更新的版本，写的过程中遇到了很多困难，于是许多题目就照搬别人的了。切身感受到，看到别人写过的东西，才会知道自己</description>
     </item>
     
     <item>
       <title>C&#43;&#43; - 面向对象编程</title>
-      <link>https://humpylin.github.io/post/essentialcpp/chapter5-note/</link>
+      <link>https://humpylin.github.io/posts/essentialcpp/chapter5-note/</link>
       <pubDate>Sat, 06 Jul 2019 16:06:30 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/post/essentialcpp/chapter5-note/</guid>
+      <guid>https://humpylin.github.io/posts/essentialcpp/chapter5-note/</guid>
       <description>这是一篇读书笔记，内容主要来自 Essential C++ 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和</description>
     </item>
     
     <item>
       <title>C&#43;&#43; - 基于对象编程</title>
-      <link>https://humpylin.github.io/post/essentialcpp/chapter4-note/</link>
+      <link>https://humpylin.github.io/posts/essentialcpp/chapter4-note/</link>
       <pubDate>Wed, 03 Jul 2019 14:19:07 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/post/essentialcpp/chapter4-note/</guid>
+      <guid>https://humpylin.github.io/posts/essentialcpp/chapter4-note/</guid>
       <description>这是一篇读书笔记，内容主要来自 Essential C++ 的第四章。 如何实现一个 Class 先说说什么是类和对象，如下面的代码，创建了一个名为 s 的字符串，这个 string 就是一个类，而</description>
     </item>
     
     <item>
       <title>Vim 学习记录 - 基本操作</title>
-      <link>https://humpylin.github.io/post/vim-learning-basic/</link>
+      <link>https://humpylin.github.io/posts/vim-learning-basic/</link>
       <pubDate>Sun, 12 May 2019 09:44:24 +0800</pubDate>
       
-      <guid>https://humpylin.github.io/post/vim-learning-basic/</guid>
+      <guid>https://humpylin.github.io/posts/vim-learning-basic/</guid>
       <description>在这里记录目前自己学习到的 Vim 的基本用法，也方便自己以后忘了后来翻阅。随着对 Vim 的使用，文章应该会变得越来越长，不过也可能因为放弃了所以一直没变</description>
     </item>
     

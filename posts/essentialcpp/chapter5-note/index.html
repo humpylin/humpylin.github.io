@@ -1,187 +1,154 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="theme-color" content="#494f5c">
-	<meta name="msapplication-TileColor" content="#494f5c">
-
-<meta itemprop="name" content="C&#43;&#43; - 面向对象编程">
-<meta itemprop="description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和">
-
-
-<meta itemprop="datePublished" content="2019-07-06T16:06:30&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-06T16:06:30&#43;08:00" />
-<meta itemprop="wordCount" content="1607">
-
-
-
-<meta itemprop="keywords" content="Essential C&#43;&#43;,Book,C&#43;&#43;," />
-<meta property="og:title" content="C&#43;&#43; - 面向对象编程" />
-<meta property="og:description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://humpylin.github.io/posts/essentialcpp/chapter5-note/" /><meta property="article:published_time" content="2019-07-06T16:06:30&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-06T16:06:30&#43;08:00"/>
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="C&#43;&#43; - 面向对象编程"/>
-<meta name="twitter:description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和"/>
-
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
-	<link rel="shortcut icon" href="/favicon.ico">
-
-	<title>C&#43;&#43; - 面向对象编程</title>
-	<link rel="stylesheet" href="https://humpylin.github.io/css/style.min.568c54a56780af2a70c45272522247710b69dbfc080b315211fb98381e3796f8.css" integrity="sha256-VoxUpWeArypwxFJyUiJHcQtp2/wICzFSEfuYOB43lvg=">
-	
+  <meta charset="utf-8">
+  <title>C&#43;&#43; - 面向对象编程 - HLin&#39;s Blog</title>
+  <meta name="generator" content="Hugo 0.68.3" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Humphrey Lin">
+  
+  <meta name="description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和">
+  
+  <meta name="keywords" content="">
+  <meta property="og:site_name" content="HLin&#39;s Blog">
+  <meta property="og:title" content="C&#43;&#43; - 面向对象编程">
+  <meta property="og:url" content="https://humpylin.github.io/posts/essentialcpp/chapter5-note/">
+  
+  <meta property="og:image" content="https://humpylin.github.ioimage/theme/og.png">
+  
+  
+  <meta property="og:description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和">
+  
+  <meta property="og:type" content="blog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@">
+  <meta name="twitter:title" content="C&#43;&#43; - 面向对象编程">
+  <meta name="twitter:url" content="https://humpylin.github.io/posts/essentialcpp/chapter5-note/">
+  
+  <meta name="twitter:description" content="这是一篇读书笔记，内容主要来自 Essential C&#43;&#43; 。 基本概念 面向对象编程概念的两项最重要特质：继承 inheritance 和 多态 polymorphism 。 继承定义了父子关系，父类定义了子类所有的 public interface 和">
+  
+  
+  <meta name="twitter:image:src" content="https://humpylin.github.ioimage/theme/og.png">
+  
+  <link rel="shortcut icon" href="https://humpylin.github.ioimage/theme/favicon.ico">
+  <link href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="alternate" href="https://humpylin.github.ioindex.xml" type="application/rss+xml" title="HLin&#39;s Blog">
 </head>
 
-<body id="page">
-	
-	<header id="site-header" class="animated slideInUp faster">
-		<div class="hdr-wrapper section-inner">
-			<div class="hdr-left">
-				<div class="site-branding">
-					<a href="https://humpylin.github.io">Humphreylin&#39;s Blog</a>
-				</div>
-				<nav class="site-nav hide-in-mobile">
-					
-				<a href="https://humpylin.github.io/posts/">Posts</a>
-				<a href="https://humpylin.github.io/about-hugo/">About</a>
-				<a href="https://humpylin.github.io/categories/">Categories</a>
-				<a href="https://humpylin.github.io/tags/">Tags</a>
 
-				</nav>
-			</div>
-			<div class="hdr-right hdr-icons">
-				<span class="hdr-social hide-in-mobile"><a href="https://github.com/humpylin" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
-			</div>
-		</div>
-	</header>
-	<div id="mobile-menu" class="animated fast">
-		<ul>
-			<li><a href="https://humpylin.github.io/posts/">Posts</a></li>
-			<li><a href="https://humpylin.github.io/about-hugo/">About</a></li>
-			<li><a href="https://humpylin.github.io/categories/">Categories</a></li>
-			<li><a href="https://humpylin.github.io/tags/">Tags</a></li>
-		</ul>
-	</div>
+<body>
+  <div id="wrap" class="wrap">
+    
+  <header class="header">
+  <div class="site-title"><a href="/">HLin&#39;s Blog</a></div>
+  <p class="site-desc"></p>
+  
+</header>
 
 
-	<main class="site-main section-inner animated fadeIn faster">
-		<article class="thin">
-			<header class="post-header">
-				<div class="post-meta"><span>Jul 6, 2019</span></div>
-				<h1>C&#43;&#43; - 面向对象编程</h1>
-			</header>
-			<div class="content">
-				
-
-<p>这是一篇读书笔记，内容主要来自 <em>Essential C++</em> 。</p>
-
-<h2 id="基本概念">基本概念<a href="#基本概念" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
+    
+  <main class="main main--single">
+    
+    <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+      <h1 class="post__title">C&#43;&#43; - 面向对象编程</h1>
+      <p class="post__date">
+        <time itemprop="datePublished" datetime="2019-07-06T16:06:30&#43;08:00">2019.07.06</time>
+      </p>
+      <div class="post-content">
+        <p>这是一篇读书笔记，内容主要来自 <em>Essential C++</em> 。</p>
+<h2 id="基本概念">基本概念</h2>
 <p>面向对象编程概念的两项最重要特质：<strong>继承 inheritance</strong> 和 <strong>多态 polymorphism</strong> 。</p>
-
 <p>继承定义了父子关系，父类定义了子类所有的 public interface 和 private implementation 。每个子类都可以增加和覆盖继承而来的东西。C++ 中父类称为基类 base class，子类称为延伸类 derived class 。有时会为了设计上的需要，创造出一个实际上不存在的类，这个类被成为抽象基类 abstract base class 。</p>
-
 <p>多态则是让基类的 pointer 或 reference 得以非常透明地指向其任何一个派生类地对象。如下函数，当传入的变量为 A 的子类时，会调用子类的 <code>check()</code> 函数，这就是多态。</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="nf">check_</span><span class="p">(</span><span class="n">A</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">check</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>动态绑定 dynamic binding 时第三个概念。如上面那个函数，在非面向对象编程时，<code>check()</code> 会在编译时就确认到底是哪个类的 <code>check()</code> 被调用 （该方式被成为静态绑定 static binding），而面向对象则无法确定到底是调用哪个对象的 <code>check()</code> ，在运行时才会最终确定。</p>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#a90d91">void</span> <span style="color:#000">check_</span>(<span style="color:#000">A</span> <span style="color:#000">&amp;</span><span style="color:#000">a</span>)
+{
+    <span style="color:#000">a</span>.<span style="color:#000">check</span>();
+}
+</code></pre></div><p>动态绑定 dynamic binding 时第三个概念。如上面那个函数，在非面向对象编程时，<code>check()</code> 会在编译时就确认到底是哪个类的 <code>check()</code> 被调用 （该方式被成为静态绑定 static binding），而面向对象则无法确定到底是调用哪个对象的 <code>check()</code> ，在运行时才会最终确定。</p>
 <p>继承使得可以定义一群互相关联、共享接口的类，多态使得可以通过抽象基类来操控共通接口。需注意，多态和动态绑定只有在使用 pointer 或 reference 时才能够发挥作用。</p>
-
-<h2 id="c-中的基本组成">C++ 中的基本组成<a href="#c-中的基本组成" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
+<h2 id="c-中的基本组成">C++ 中的基本组成</h2>
 <p>一般 member function 会在编译的时候被静态解析，如果想令其运行时动态解析，需要在函数声明前加上 virtual 。</p>
-
 <p>当创建对象时，会先运行基类的 constructor 再运行派生类的，而当销毁时，会先运行派生类的 destructor 再运行基类的。</p>
-
 <p>基类可以 public、protected 和 private 三种方式进行继承（甚至还有多重继承和虚继承），方法如下。这里 Book 继承了 LibMat，如果对 LibMat 中存在的函数重新定义，就会覆盖之前的函数。被声明为 protected 的成员都可以直接被派生类访问，除此之外，都不能直接访问 protected 成员。</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span><span class="err"> </span><span class="nc">Book</span> <span class="o">:</span> <span class="k">public</span> <span class="n">LibMat</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="c1">// something
-</span><span class="c1"></span><span class="k">protected</span><span class="o">:</span>
-    <span class="n">string</span> <span class="n">smth</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-<h2 id="定义一个抽象基类">定义一个抽象基类<a href="#定义一个抽象基类" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Book</span> <span style="color:#000">:</span> <span style="color:#a90d91">public</span> <span style="color:#000">LibMat</span> {
+<span style="color:#a90d91">public</span><span style="color:#000">:</span>
+    <span style="color:#177500">// something
+</span><span style="color:#177500"></span><span style="color:#a90d91">protected</span><span style="color:#000">:</span>
+    <span style="color:#000">string</span> <span style="color:#000">smth</span>;
+};
+</code></pre></div><h2 id="定义一个抽象基类">定义一个抽象基类</h2>
 <p>先找出所有子类共通的操作行为，然后看看哪些行为时和类型有关系的（type-dependent），再决定每个操作的访问层级（access level，就是 public、private、protected 之类的）。</p>
-
 <p>每个虚函数（virtual function），要么得有定义，要么被设置为纯虚函数（pure virtual function）。如果这个函数对目前这个类没有什么意义的话，可以给其赋值为 0 ，表示这是一个纯虚函数。如果一个类有纯虚函数的话，那么无法给这个类创建任何对象。</p>
-
 <p>一般来说，凡是基类定义了虚函数的，都需要将 destructor 声明为 virtual 。另外即便 destructor 没有什么意义，也最好不要设置为纯虚函数。</p>
-
-<h2 id="定义一个派生类">定义一个派生类<a href="#定义一个派生类" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
+<h2 id="定义一个派生类">定义一个派生类</h2>
 <p>派生类进行继承声明时，基类的定义必须要已经存在。而对虚函数进行定义时，无论是在类里面还是类外面，都不需要加 virtual 。另外定义的时候，如果使用了动态解析的函数，但是是已经确定的，可以使用 class scope （就是 <code>ClassName::function()</code> 这样的）来说明是哪个类，让编译器静态解析。</p>
-
-<h2 id="派生类的-constructor-和-destructor">派生类的 constructor 和 destructor<a href="#派生类的-constructor-和-destructor" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
+<h2 id="派生类的-constructor-和-destructor">派生类的 constructor 和 destructor</h2>
 <p>创建对象的时候会先使用基类的 constructor，后使用派生类的。基类可能有多个 constructor ，所以定义派生类的 constructor 时需要进行指定并提供相关值，类似下面</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#177500">/* from Essential C++ */</span>
 
-<span class="kr">inline</span> <span class="n">Fibonacci</span><span class="o">::</span>
-<span class="n">Fibonacci</span><span class="p">(</span><span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">beg_pos</span><span class="p">)</span>
-    <span class="o">:</span> <span class="n">num_sequence</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">beg_pos</span><span class="p">,</span> <span class="n">_elems</span><span class="p">)</span>
-    <span class="p">{}</span>
-</code></pre></div>
-<p>而如果没有明确指出，则会调用基类的 default constructor 。</p>
-
+<span style="color:#a90d91">inline</span> <span style="color:#000">Fibonacci</span><span style="color:#000">::</span>
+<span style="color:#000">Fibonacci</span>(<span style="color:#a90d91">int</span> <span style="color:#000">len</span>, <span style="color:#a90d91">int</span> <span style="color:#000">beg_pos</span>)
+    <span style="color:#000">:</span> <span style="color:#000">num_sequence</span>(<span style="color:#000">len</span>, <span style="color:#000">beg_pos</span>, <span style="color:#000">_elems</span>)
+    {}
+</code></pre></div><p>而如果没有明确指出，则会调用基类的 default constructor 。</p>
 <p>而 destructor 就不需要这样明确指出了。</p>
-
-<h2 id="派生类中的虚函数">派生类中的虚函数<a href="#派生类中的虚函数" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
+<h2 id="派生类中的虚函数">派生类中的虚函数</h2>
 <p>如果要进行函数的覆盖，那么派生类中的函数必须要和基类的一模一样，除非基类中的函数返回类型是基类自己，那派生函数也可以改成派生类自己。<strong>在使用虚函数的时候，要使用 pointer 或者 reference 来进行使用，否则不会根据实际对象的类型来使用函数。</strong></p>
-
-<h2 id="运行时类型的鉴别机制">运行时类型的鉴别机制<a href="#运行时类型的鉴别机制" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
+<h2 id="运行时类型的鉴别机制">运行时类型的鉴别机制</h2>
 <p><code>typeid</code> 运算符在 <code>typeinfo</code> 头文件中，会返回一个 <code>type_info</code> 对象，里面存储着与类型相关的种种信息，该对象的 <code>name()</code> 会返回一个 <code>const char *</code> ，用以表示类名。另外 <code>type_info</code> 对象也支持等于和不等于两个比较运算符。</p>
-
 <p>如果通过 <code>typeid</code> 得知了具体的类型，想要进行转换，可以使用 <code>static_cast</code> 运算符，如下所示。</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#177500">/* from Essential C++ */</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">)</span> <span class="o">==</span> <span class="k">typeid</span><span class="p">(</span><span class="n">Fibonacci</span><span class="p">))</span> <span class="p">{</span>
-    <span class="n">Fibonacci</span> <span class="o">*</span><span class="n">pf</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Fibonacci</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">ps</span><span class="p">);</span>
-    <span class="n">pf</span><span class="o">-&gt;</span><span class="n">gen_elems</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>不过编译器不会保证转换操作完成正确，如果没有进行判断就直接转换可能会有危险。而 <code>dynamic_cast</code> 则会在运行的时候进行检测，如果不能进行转换，则会返回 NULL ，如下所示。</p>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/* from Essential C++ */</span>
+<span style="color:#a90d91">if</span> (<span style="color:#a90d91">typeid</span>(<span style="color:#000">*</span><span style="color:#000">ps</span>) <span style="color:#000">==</span> <span style="color:#a90d91">typeid</span>(<span style="color:#000">Fibonacci</span>)) {
+    <span style="color:#000">Fibonacci</span> <span style="color:#000">*</span><span style="color:#000">pf</span> <span style="color:#000">=</span> <span style="color:#a90d91">static_cast</span><span style="color:#000">&lt;</span><span style="color:#000">Fibonacci</span><span style="color:#000">*&gt;</span>(<span style="color:#000">ps</span>);
+    <span style="color:#000">pf</span><span style="color:#000">-&gt;</span><span style="color:#000">gen_elems</span>(<span style="color:#1c01ce">64</span>);
+}
+</code></pre></div><p>不过编译器不会保证转换操作完成正确，如果没有进行判断就直接转换可能会有危险。而 <code>dynamic_cast</code> 则会在运行的时候进行检测，如果不能进行转换，则会返回 NULL ，如下所示。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#177500">/* from Essential C++ */</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="n">Fibonacci</span> <span class="o">*</span><span class="n">pf</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Fibonacci</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">ps</span><span class="p">))</span>
-    <span class="n">pf</span><span class="o">-&gt;</span><span class="n">gen_elems</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
-</code></pre></div>
-<p>类型转换的作用就是，如果基类中没有定义相关成员，那么可以通过类型转换，来访问派生类中的成员。此外，<code>dynamic_cast</code> 和 <code>typeid</code> 都是运行时类型鉴别 Run-Time Type Identification ，所以也会比较慢。</p>
+<span style="color:#a90d91">if</span> (<span style="color:#000">Fibonacci</span> <span style="color:#000">*</span><span style="color:#000">pf</span> <span style="color:#000">=</span> <span style="color:#a90d91">dynamic_cast</span><span style="color:#000">&lt;</span><span style="color:#000">Fibonacci</span> <span style="color:#000">*&gt;</span>(<span style="color:#000">ps</span>))
+    <span style="color:#000">pf</span><span style="color:#000">-&gt;</span><span style="color:#000">gen_elems</span>(<span style="color:#1c01ce">64</span>);
+</code></pre></div><p>类型转换的作用就是，如果基类中没有定义相关成员，那么可以通过类型转换，来访问派生类中的成员。此外，<code>dynamic_cast</code> 和 <code>typeid</code> 都是运行时类型鉴别 Run-Time Type Identification ，所以也会比较慢。</p>
 
-			</div>
-			<hr class="post-end">
-			<footer class="post-info">
-				<p>
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://humpylin.github.io/tags/essential-c&#43;&#43;">Essential C&#43;&#43;</a></span><span class="tag"><a href="https://humpylin.github.io/tags/book">Book</a></span><span class="tag"><a href="https://humpylin.github.io/tags/c&#43;&#43;">C&#43;&#43;</a></span>
-				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-07-06 16:06 &#43;0800</p>
-			</footer>
-		</article>
-		<div class="post-nav thin">
-			<a class="next-post" href="https://humpylin.github.io/posts/csapp/data-lab/">
-				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;</span><br><span>CSAPP - Data Lab 记录</span>
-			</a>
-			<a class="prev-post" href="https://humpylin.github.io/posts/essentialcpp/chapter4-note/">
-				<span class="post-nav-label">&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>C&#43;&#43; - 基于对象编程</span>
-			</a>
-		</div>
-		<div id="comments" class="thin">
+      </div>
+    </article>
+    
+    <hr class="post-hr">
+    
+    <nav class="post-nav">
+      <ol class="pure-g">
+        
+        <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+          <a href="https://humpylin.github.io/posts/csapp/datalab/">
+            <span class="post-nav-label">新しい記事</span>
+            <span class="post-nav-title">
+              CSAPP - Data Lab 记录
+            </span>
+          </a>
+        </li>
+        
+        
+        <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+          <a href="https://humpylin.github.io/posts/essentialcpp/chapter4-note/">
+            <span class="post-nav-label">古い記事</span>
+            <span class="post-nav-title">
+              C&#43;&#43; - 基于对象编程
+            </span>
+          </a>
+        </li>
+        
+      </ol>
+      <div class="post-nav-back">
+        <a class="pure-button" href="/">記事一覧へ戻る</a>
+      </div>
+    </nav>
+  
+    <div id="comments">
+      
 <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
@@ -202,29 +169,47 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</div>
-	</main>
 
-	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
-		<p>&copy; 2019 <a href="https://humpylin.github.io">Humphrey Lin</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
-		<p>
-			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://humpylin.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
-		</p>
-	</footer>
+    </div>
+  </main>
+
+    
+  <footer class="footer">
+  <section class="author">
+    <h2>Author</h2>
+    <div class="pure-g">
+      <div class="author__image pure-u-1-5 pure-u-md-1-8">
+        <img src="https://humpylin.github.ioimage/theme/author.png" alt="">
+      </div>
+      <div class="author__info pure-u-4-5 pure-u-md-7-8">
+        
+        <h3>Humphrey Lin</h3>
+        
+        
+        <p>I am a Computer Sicence student in China.</p>
+        
+        <ul class="author__links">
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+  </section>
+  <small>©HLin&#39;s Blog</small>
+</footer>
 
 
-	<script src="https://humpylin.github.io/js/main.min.35ccbf1cdceb91e4c64c06b5d009d6e2977fafe56beda7762febd4e67528d2ac.js" integrity="sha256-Ncy/HNzrkeTGTAa10AnW4pd/r+Vr7ad2L+vU5nUo0qw="></script>
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-129102042-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+  </div>
 
+  
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="/js/mathjax-config.js"></script>
+<script src="/js/script.js"></script>
 
 </body>
 
