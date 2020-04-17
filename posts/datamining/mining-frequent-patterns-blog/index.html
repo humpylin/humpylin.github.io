@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Mining Frequent Patterns - HLin&#39;s Blog</title>
+  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Humphrey Lin">
+  
+  <meta name="description" content="本篇是在阅读 Data Mining 时所做的笔记，具体内容可以阅读该书。 Basic Concepts Frequent patterns mining: 举个例子，你在一家面包店，发现有人会买面包，有人会买牛奶，有人会一起买，因此你">
+  
+  <meta name="keywords" content="">
+  <meta property="og:site_name" content="HLin&#39;s Blog">
+  <meta property="og:title" content="Mining Frequent Patterns">
+  <meta property="og:url" content="https://humpylin.github.io/posts/datamining/mining-frequent-patterns-blog/">
+  
+  <meta property="og:image" content="https://humpylin.github.io/image/theme/og.png">
+  
+  
+  <meta property="og:description" content="本篇是在阅读 Data Mining 时所做的笔记，具体内容可以阅读该书。 Basic Concepts Frequent patterns mining: 举个例子，你在一家面包店，发现有人会买面包，有人会买牛奶，有人会一起买，因此你">
+  
+  <meta property="og:type" content="blog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@">
+  <meta name="twitter:title" content="Mining Frequent Patterns">
+  <meta name="twitter:url" content="https://humpylin.github.io/posts/datamining/mining-frequent-patterns-blog/">
+  
+  <meta name="twitter:description" content="本篇是在阅读 Data Mining 时所做的笔记，具体内容可以阅读该书。 Basic Concepts Frequent patterns mining: 举个例子，你在一家面包店，发现有人会买面包，有人会买牛奶，有人会一起买，因此你">
+  
+  
+  <meta name="twitter:image:src" content="https://humpylin.github.io/image/theme/og.png">
+  
+  <link rel="shortcut icon" href="https://humpylin.github.io/image/theme/favicon.ico">
+  <link href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="alternate" href="https://humpylin.github.io/index.xml" type="application/rss+xml" title="HLin&#39;s Blog">
+</head>
+
+
+<body>
+  <div id="wrap" class="wrap">
+    
+  <header class="header">
+  <div class="site-title"><a href="/">HLin&#39;s Blog</a></div>
+  <p class="site-desc"></p>
+  
+</header>
+
+
+    
+  <main class="main main--single">
+    
+    <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+      <h1 class="post__title">Mining Frequent Patterns</h1>
+      <p class="post__date">
+        <time itemprop="datePublished" datetime="2020-04-12T17:41:46&#43;08:00">2020.04.12</time>
+      </p>
+      <div class="post-content">
+        <p><strong>本篇是在阅读 <a href="https://book.douban.com/subject/6533777/">Data Mining</a> 时所做的笔记，具体内容可以阅读该书。</strong></p>
+<h2 id="basic-concepts">Basic Concepts</h2>
+<ul>
+<li>Frequent patterns mining: 举个例子，你在一家面包店，发现有人会买面包，有人会买牛奶，有人会一起买，因此你开始觉得面包和牛奶有联系。这种联系就叫做 <strong>frequent patterns</strong> 或者 <strong>association rules</strong> 。而从大量的记录中找 patterns 就叫做 frequent patterns mining 。最后生成如下形式的规则。</li>
+</ul>
+<p>$$
+Milk \rightarrow Bread \lbrack Support: 9\%, Confidence: 65\% \rbrack
+$$</p>
+<ul>
+<li>Supoort and confidence: support 指数据集中同时含有面包和牛奶的数据比例，confidence 指含牛奶的数据中同时含有面包的数据比例。这两个值可以用于评估规则。</li>
+</ul>
+<p>$$
+Support(A \Rightarrow B) = P(A \cup B)
+$$
+$$
+Confidence(A \Rightarrow B) = P(B|A)
+$$</p>
+<ul>
+<li>
+<p>min_sup and min_conf: minimum support threshold and minimum confidence threshold，support 和 confidence 的最小阈值，同时满足这两个阈值的规则被称为 strong 。满足 min_sup 的便是 frequent 的。</p>
+</li>
+<li>
+<p>挖掘的通常步骤：</p>
+<ul>
+<li>找满足 min_sup 的 item sets 。（最耗时的部分）</li>
+<li>从 item sets 中生成满足 min_sup 和 min_conf 的规则。</li>
+</ul>
+</li>
+<li>
+<p>Closed: 如果一个 item set 没有任何和它有一样 support 的超集，那么这个 item set 便是 closed item set 。</p>
+</li>
+<li>
+<p>Maximal: 如果一个 item set 的超集都不满足 min_sup ，那么这个 item set 便是 maximal item set 。</p>
+</li>
+</ul>
+<h2 id="frequent-itemset-mining-methods">Frequent Itemset Mining Methods</h2>
+<h3 id="apriori-algorithm">Apriori Algorithm</h3>
+<p>这个算法是用来找 maximal frequent item sets 的，之后还需要筛除满足 min_conf 的。</p>
+<ul>
+<li>Apriori property: frequent item set 的子集也是 frequent 的。</li>
+<li>具体做法：
+<ul>
+<li>使用含 k 个 item 的 item sets 来俩俩取并集生成含 k + 1 个 item 的 item sets 。（也就是说需要这两个 item sets 含 k - 1 个一样的 item 。）</li>
+<li>扫描数据库来看看上一步生成的 item sets 是否满足 min_sup ，来进行筛选。这里可以应用 Apriori 来优化：这些 (k+1)-itemsets 中如果存在子集 k-itemset 不在上一步的 k-itemsets 的话，那么就可以直接剔除不用浪费时间扫描数据库了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="generating-association-rules-from-frequent-itemsets">Generating Association Rules from Frequent Itemsets</h3>
+<ul>
+<li>
+<p>Confidence 可以使用贝叶斯公式来计算。
+$$
+confidence(A \Rightarrow B) = P(B|A) = \frac{support\_count(A\cup B)}{support\_count(A)}
+$$</p>
+</li>
+<li>
+<p>算法如下：</p>
+<ul>
+<li>对所有 maximal frequent itemsets $l$ 生成非空子集 $s$ 。</li>
+<li>如果 $confidence(s \Rightarrow (l - s))$ 满足 min_conf ，那么输出规则。</li>
+</ul>
+</li>
+</ul>
+<h3 id="improving-the-efficiency-of-apriori">Improving the Efficiency of Apriori</h3>
+<p>// TODO</p>
+<h3 id="fp-growth">FP-growth</h3>
+<p>// TODO</p>
+<h3 id="using-the-vertical-data-format">Using the vertical data format</h3>
+<ul>
+<li>Horizontal data format: 想之前举例的，数据以 <code>{TID: itemset}</code> 的形式存储，便是水平结构的。</li>
+<li>Vertical data format: 以 <code>{item: TID_set} </code> 形式存储的为垂直结构。</li>
+<li>Eclat 算法：对 <code>TID_set</code> 取交集，交集的长度便是 support 了。不断俩俩取交集生成 (k+1)-itemset 之后就可以得到 maximal frequent itemsets 了。
+<ul>
+<li>优化：由于记录 itemset 的 <code>TID_set</code> 可能很长，这样使得取交集很费时间。一种优化是记录交集的时候记录集合之间的差，如 $I_1 \cap I_2 - I_1$ 节省空间。</li>
+</ul>
+</li>
+</ul>
+<h2 id="pattern-evaluation-methods">Pattern Evaluation Methods</h2>
+<p>// TODO</p>
+
+      </div>
+    </article>
+    
+    <hr class="post-hr">
+    
+    <nav class="post-nav">
+      <ol class="pure-g">
+        
+        <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+        </li>
+        
+        
+        <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+          <a href="https://humpylin.github.io/posts/csapp/attacklab/">
+            <span class="post-nav-label">古い記事</span>
+            <span class="post-nav-title">
+              CSAPP - Attack Lab 记录
+            </span>
+          </a>
+        </li>
+        
+      </ol>
+      <div class="post-nav-back">
+        <a class="pure-button" href="/">記事一覧へ戻る</a>
+      </div>
+    </nav>
+  
+    <div id="comments">
+      
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "humpylin-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+  </main>
+
+    
+  <footer class="footer">
+  <section class="author">
+    <h2>Author</h2>
+    <div class="pure-g">
+      <div class="author__image pure-u-1-5 pure-u-md-1-8">
+        <img src="https://humpylin.github.io/image/theme/author.png" alt="">
+      </div>
+      <div class="author__info pure-u-4-5 pure-u-md-7-8">
+        
+        <h3>Humphrey Lin</h3>
+        
+        
+        <p>I am a Computer Sicence student in China.</p>
+        
+        <ul class="author__links">
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+  </section>
+  <small>©HLin&#39;s Blog</small>
+</footer>
+
+
+  </div>
+
+  
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="/js/mathjax-config.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+
+</html>

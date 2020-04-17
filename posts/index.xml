@@ -6,10 +6,19 @@
     <description>Recent content in Posts on HLin&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 08 Aug 2019 20:17:53 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2020 17:41:46 +0800</lastBuildDate>
     
 	<atom:link href="https://humpylin.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mining Frequent Patterns</title>
+      <link>https://humpylin.github.io/posts/datamining/mining-frequent-patterns-blog/</link>
+      <pubDate>Sun, 12 Apr 2020 17:41:46 +0800</pubDate>
+      
+      <guid>https://humpylin.github.io/posts/datamining/mining-frequent-patterns-blog/</guid>
+      <description>本篇是在阅读 Data Mining 时所做的笔记，具体内容可以阅读该书。 Basic Concepts Frequent patterns mining: 举个例子，你在一家面包店，发现有人会买面包，有人会买牛奶，有人会一起买，因此你</description>
+    </item>
     
     <item>
       <title>CSAPP - Attack Lab 记录</title>
